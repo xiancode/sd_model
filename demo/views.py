@@ -34,21 +34,14 @@ class SdViewSet(viewsets.ModelViewSet):
 class ApiViewSet(APIView):
     #renderer_classes = (JSONRenderer, )
     def post(self, request, format=None):
+        table = request.data['table']
+        json_file(table, BASE_DIR+"/data/table_upload.txt")
         serializer = SdmodelSerializer(data=request.data)
         if serializer.is_valid():
             #v_data = serializer.validated_data
             serializer.save()
             seria_data = serializer.data
-            
             sdmethod = seria_data.get("sdmethod")
-            table = seria_data.get("table")
-            
-            
-            decodejson = json.loads(table)
-            json_file(decodejson, BASE_DIR+"/data/table_upload.txt")
-            
-            
-            
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
