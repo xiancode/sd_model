@@ -16,6 +16,7 @@ from django.http import Http404
 from rest_framework import status
 
 from demo.transmethod.tabale_file import json_file
+from demo.sdmethod import sd_em
 
 # Create your views here.
 
@@ -34,15 +35,20 @@ class SdViewSet(viewsets.ModelViewSet):
 class ApiViewSet(APIView):
     #renderer_classes = (JSONRenderer, )
     def post(self, request, format=None):
-        table = request.data['table']
-        json_file(table, BASE_DIR+"/data/table_upload.txt")
+        #table = request.data['table']
+        save_filename = BASE_DIR+"/data/table_upload.txt"
+        result_filename = BASE_DIR+"/data/sd_em_result.txt"
+        #json_file(table, save_filename)
         serializer = SdmodelSerializer(data=request.data)
         if serializer.is_valid():
             #v_data = serializer.validated_data
             serializer.save()
             seria_data = serializer.data
             sdmethod = seria_data.get("sdmethod")
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            cal_result = sd_em.sd_em(save_filename, result_filename)
+            
+            #return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(cal_result, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
 
