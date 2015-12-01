@@ -1,6 +1,7 @@
 #!/usr/bin/env python 
 #-*-coding=utf-8-*-
-
+import json
+import os
 from django.shortcuts import render
 from rest_framework import viewsets
 from demo.serializers import SdmodelSerializer
@@ -14,9 +15,13 @@ from rest_framework.views import APIView
 from django.http import Http404
 from rest_framework import status
 
+from demo.transmethod.tabale_file import json_file
+
 # Create your views here.
 
 #renderer_classes = (JSONRenderer, )
+
+BASE_DIR =os.path.dirname(os.path.abspath(__file__))
 
 class SdViewSet(viewsets.ModelViewSet):
     '''
@@ -37,6 +42,10 @@ class ApiViewSet(APIView):
             
             sdmethod = seria_data.get("sdmethod")
             table = seria_data.get("table")
+            
+            
+            decodejson = json.loads(table)
+            json_file(decodejson, BASE_DIR+"/data/table_upload.txt")
             
             
             
