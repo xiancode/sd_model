@@ -31,7 +31,15 @@ class ApiViewSet(APIView):
     def post(self, request, format=None):
         serializer = SdmodelSerializer(data=request.data)
         if serializer.is_valid():
+            #v_data = serializer.validated_data
             serializer.save()
+            seria_data = serializer.data
+            
+            sdmethod = seria_data.get("sdmethod")
+            table = seria_data.get("table")
+            
+            
+            
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
