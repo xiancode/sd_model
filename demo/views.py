@@ -55,7 +55,19 @@ class ApiViewSet(APIView):
             serializer.save()
             seria_data = serializer.data
             sdmethod = seria_data.get("sdmethod")
-            cal_result = sd_em.sd_em(save_filename, result_filename)
+            cal_result = {}
+            if sdmethod == "sd_em":
+                cal_result = sd_em.sd_em(save_filename, result_filename)
+            elif sdmethod == "sd_fa":
+                try:
+                    c = sdmethod = seria_data.get("c")
+                    pass
+                except Exception,e:
+                    cal_result["error"] = "can not  get 'c' from request"
+            elif sdmethod == "sd_pac":
+                pass
+            elif sdmethod == "aprior":
+                pass
             
             #return Response(serializer.data, status=status.HTTP_201_CREATED)
             return Response(cal_result, status=status.HTTP_201_CREATED)
