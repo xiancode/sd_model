@@ -80,41 +80,36 @@ def sd_em(fname,result_name):
     scores = np.dot(origin_values,w.T)
     scores_list = scores.tolist()
     
-    
     #输出
     display_e_ = map(lambda x:str(round(x,4)),e_)
     dispaly_w  = map(lambda x:str(round(x,4)),w)
     
-    #
-    table_one = []
-    
-    fout = open(result_name,"w")
-    
-    fout.write("指标\t")
-    fout.write("\t".join(indi_list))
-    fout.write("\n")
-    #
-    table_one.append(["指标"])
-    table_one[0] += indi_list
-    
-    
-    
-    fout.write("指标熵值\t")
-    fout.write("\t".join(display_e_))
-    fout.write("\n")
-    #
-    table_one.append(["指标熵值"])
-    table_one[1] += display_e_
-    
-    fout.write("指标权重\t")
-    fout.write("\t".join(dispaly_w))
-    fout.write("\n")
-    #
-    table_one.append(["指标权重"])
-    table_one[2] += dispaly_w
-    
-    rank_one = []
-    fout.write("\n===============================\n")
+    if result_name is None:
+        table_one = []
+        table_one.append(["指标"])
+        table_one[0] += indi_list
+        
+        table_one.append(["指标熵值"])
+        table_one[1] += display_e_
+        
+        table_one.append(["指标权重"])
+        table_one[2] += dispaly_w
+        rank_one = []
+    else:
+        fout = open(result_name,"w")
+        fout.write("指标\t")
+        fout.write("\t".join(indi_list))
+        fout.write("\n")
+        #
+        fout.write("指标熵值\t")
+        fout.write("\t".join(display_e_))
+        fout.write("\n")
+        #
+        fout.write("指标权重\t")
+        fout.write("\t".join(dispaly_w))
+        fout.write("\n")
+        fout.write("\n===============================\n")
+        
     if len(area_list) == len(scores):
         area_scores = zip(scores_list,area_list)
         as_dict = dict((key,value) for key,value in area_scores)
@@ -123,16 +118,22 @@ def sd_em(fname,result_name):
         scores_list.sort(reverse=True)
         for score in scores_list:
             #print area_list[i],scores[i]
-            rank_one.append([as_dict[score],score])
-            fout.write("%s,%.5f \n" % (as_dict[score],score))
+            if result_name is None:
+                rank_one.append([as_dict[score],score])
+            else:
+                fout.write("%s,%.5f \n" % (as_dict[score],score))
     else:
         print "caculated result not equal to area_list"
-    fout.close()
-    print "save to ",result_name
-    result_dict = {}
-    result_dict["table_one"] = table_one
-    result_dict["rank_one"] = rank_one
-    return result_dict
+    
+    if result_name is None:
+        result_dict = {}
+        result_dict["table_one"] = table_one
+        result_dict["rank_one"] = rank_one
+        return result_dict
+    else:
+        fout.close()
+        print "save to ",result_name
+    
     
 if __name__ == "__main__":
     optparser = OptionParser()

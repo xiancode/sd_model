@@ -15,8 +15,12 @@ from rest_framework.views import APIView
 from django.http import Http404
 from rest_framework import status
 
-from demo.transmethod.tabale_file import json_file
+from demo.transmethod.tabale_file import json_file,generate_file_from_time
 from demo.sdmethod import sd_em
+
+from django.utils import  timezone
+import datetime
+from django.utils.timezone import utc
 
 # Create your views here.
 
@@ -36,11 +40,17 @@ class ApiViewSet(APIView):
     #renderer_classes = (JSONRenderer, )
     def post(self, request, format=None):
         table = request.data['table']
-        save_filename = BASE_DIR+"/data/table_upload.txt"
-        result_filename = BASE_DIR+"/data/sd_em_result.txt"
+        current = datetime.datetime.utcnow().replace(tzinfo=utc)
+        current = timezone.localtime(current)
+        #save_filename = BASE_DIR+"/data/table_upload.txt"
+        save_filename = generate_file_from_time(current, BASE_DIR + os.path.sep + "data")
+        #result_filename = save_filename[:-4] + "_result.dat"
+        result_filename = None
         json_file(table, save_filename)
         serializer = SdmodelSerializer(data=request.data)
         if serializer.is_valid():
+            #now = datetime.datetime.utcnow().replace(tzinfo=utc)
+            #now = timezone.localtime(now)
             #v_data = serializer.validated_data
             serializer.save()
             seria_data = serializer.data
@@ -51,8 +61,6 @@ class ApiViewSet(APIView):
             return Response(cal_result, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
-
-
 
 # @api_view(['GET', 'POST'])
 # def sdapi_view(request):
