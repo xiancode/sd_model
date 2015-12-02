@@ -35,10 +35,10 @@ class SdViewSet(viewsets.ModelViewSet):
 class ApiViewSet(APIView):
     #renderer_classes = (JSONRenderer, )
     def post(self, request, format=None):
-        #table = request.data['table']
+        table = request.data['table']
         save_filename = BASE_DIR+"/data/table_upload.txt"
         result_filename = BASE_DIR+"/data/sd_em_result.txt"
-        #json_file(table, save_filename)
+        json_file(table, save_filename)
         serializer = SdmodelSerializer(data=request.data)
         if serializer.is_valid():
             #v_data = serializer.validated_data
