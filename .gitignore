@@ -1,6 +1,7 @@
 *.pyc
 *.dat
 *.txt
+*.sqlite3
 .project
 .pydevproject
 
