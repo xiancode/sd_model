@@ -9,9 +9,11 @@ class Sdmodel(models.Model):
     created = models.DateField(auto_now_add=True)
     sdmethod = models.CharField(max_length=100, blank=True, default='')
     table = models.TextField()
+    c = models.CharField(max_length=10, blank=True, default='')
+    s = models.CharField(max_length=10, blank=True, default='')
     
     def __str__(self):              # __unicode__ on Python 2
-        return self.table
+        return self.sdmethod
     
     #class Meta:
        # ordering = ('created',)

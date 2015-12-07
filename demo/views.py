@@ -16,7 +16,7 @@ from django.http import Http404
 from rest_framework import status
 
 from demo.transmethod.tabale_file import json_file,generate_file_from_time
-from demo.sdmethod import sd_em
+from demo.sdmethod import sd_em,sd_fa,sd_pca
 
 from django.utils import  timezone
 import datetime
@@ -57,15 +57,30 @@ class ApiViewSet(APIView):
             sdmethod = seria_data.get("sdmethod")
             cal_result = {}
             if sdmethod == "sd_em":
-                cal_result = sd_em.sd_em(save_filename, result_filename)
+                try:
+                    cal_result = sd_em.sd_em(save_filename, result_filename)
+                except Exception,e:
+                    cal_result['cal_error']  = "sd_em method cal error"
             elif sdmethod == "sd_fa":
                 try:
                     c = sdmethod = seria_data.get("c")
-                    pass
                 except Exception,e:
-                    cal_result["error"] = "can not  get 'c' from request"
-            elif sdmethod == "sd_pac":
-                pass
+                    cal_result["para_error"] = "can not  get 'c' from request"
+                    
+                try:
+                    cal_result = sd_fa.sd_fa(save_filename, int(c), result_name=None)
+                except Exception,e:
+                    cal_result["cal_error"] = "sd_fa method cal error"
+            elif sdmethod == "sd_pca":
+                try:
+                    c = sdmethod = seria_data.get("c")
+                except Exception,e:
+                    cal_result["para_error"] = "can not  get 'c' from request"
+                    
+                try:
+                    cal_result = sd_pca.sd_pca(save_filename, int(c), result_name=None)
+                except Exception,e:
+                    cal_result["cal_error"] = "sd_pca  method cal error"
             elif sdmethod == "aprior":
                 pass
             

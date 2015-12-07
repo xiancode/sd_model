@@ -9,4 +9,4 @@ from demo.models import Sdmodel
 class SdmodelSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Sdmodel
-        fields = ('sdmethod','table')
+        fields = ('sdmethod','table','c','s')
