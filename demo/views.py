@@ -15,7 +15,7 @@ from rest_framework.views import APIView
 from django.http import Http404
 from rest_framework import status
 
-from demo.transmethod.tabale_file import json_file,generate_file_from_time
+from demo.transmethod.tabale_file import json_file,generate_file_from_time,get_now_time
 from demo.sdmethod import sd_em,sd_fa,sd_pca,sd_apri
 
 from django.utils import  timezone
@@ -47,7 +47,9 @@ class ApiViewSet(APIView):
         #result_filename = save_filename[:-4] + "_result.dat"
         result_filename = None
         json_file(table, save_filename)
-        serializer = SdmodelSerializer(data=request.data)
+        data = request.data.dict()
+        data["created_time"] = get_now_time()
+        serializer = SdmodelSerializer(data=data)
         if serializer.is_valid():
             #now = datetime.datetime.utcnow().replace(tzinfo=utc)
             #now = timezone.localtime(now)
@@ -63,7 +65,7 @@ class ApiViewSet(APIView):
                     cal_result['cal_error']  = "sd_em method cal error"
             elif sdmethod == "sd_fa":
                 try:
-                    c = sdmethod = seria_data.get("c")
+                    c  = seria_data.get("c")
                 except Exception,e:
                     cal_result["para_error"] = "can not  get 'c' from request"
                     
@@ -73,7 +75,7 @@ class ApiViewSet(APIView):
                     cal_result["cal_error"] = "sd_fa method cal error"
             elif sdmethod == "sd_pca":
                 try:
-                    c = sdmethod = seria_data.get("c")
+                    c  = seria_data.get("c")
                 except Exception,e:
                     cal_result["para_error"] = "can not  get 'c' from request"
                     
@@ -83,17 +85,17 @@ class ApiViewSet(APIView):
                     cal_result["cal_error"] = "sd_pca  method cal error"
             elif sdmethod == "sd_apri":
                 try:
-                    c = sdmethod = seria_data.get("c")
+                    c  = seria_data.get("c")
                 except Exception,e:
                     cal_result["para_error"] = "can not  get 'c' from request"
                 
                 try:
-                    b = sdmethod = seria_data.get("b")
+                    b  = seria_data.get("b")
                 except Exception,e:
                     cal_result["para_error"] = "can not  get 'b' from request"
                 
                 try:
-                    s = sdmethod = seria_data.get("s")
+                    s  = seria_data.get("s")
                 except Exception,e:
                     cal_result["para_error"] = "can not  get 's' from request"
                     
@@ -102,6 +104,8 @@ class ApiViewSet(APIView):
                     #cal_result = sd_pca.sd_pca(save_filename, int(c), result_name=None)
                 except Exception,e:
                     cal_result["cal_error"] = "sd_apri  method cal error"
+            else:
+                pass
             
             #return Response(serializer.data, status=status.HTTP_201_CREATED)
             return Response(cal_result, status=status.HTTP_201_CREATED)

@@ -5,6 +5,9 @@ import json
 from datetime import datetime
 import os.path
 import random
+import datetime
+from django.utils import  timezone
+from django.utils.timezone import utc
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -41,12 +44,14 @@ def generate_file_from_time(current,dir_name):
     file_name = time_file+"-" + random_filename + ".dat"
     full_path = os.path.join(dir_path,file_name)
     return full_path
+
+def get_now_time():
+    current = datetime.datetime.utcnow().replace(tzinfo=utc)
+    current = timezone.localtime(current)
+    result_time = current.strftime('%H-%M-%S')
+    return str(result_time).decode()
         
     
-    
-    
-    
-
 if __name__ == "__main__":
     table = file_list(BASE_DIR + "/data/table.txt")
     encodedjson = json.dumps(table)

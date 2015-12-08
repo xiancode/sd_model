@@ -2,12 +2,14 @@
 #-*-coding=utf-8-*-
 
 from django.db import models
+from demo.transmethod.tabale_file  import get_now_time
 
 # Create your models here.
 
 class Sdmodel(models.Model):
     created = models.DateField(auto_now_add=True)
-    sdmethod = models.CharField(max_length=100, blank=True, default='')
+    created_time  = models.CharField(max_length=30, blank=True, default='')
+    sdmethod = models.CharField(max_length=10, blank=True, default='')
     table = models.TextField()
     c = models.CharField(max_length=10, blank=True, default='')
     s = models.CharField(max_length=10, blank=True, default='')
