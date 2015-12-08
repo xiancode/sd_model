@@ -1,30 +1,17 @@
 #!/usr/bin/env python 
 #-*-coding=utf-8-*-
-import json
+
 import os
-from django.shortcuts import render
+
 from rest_framework import viewsets
-from demo.serializers import SdmodelSerializer
-from demo.models import Sdmodel
 from rest_framework.response import Response
-
-from rest_framework.decorators import api_view
-from rest_framework.renderers import JSONRenderer
 from rest_framework.views import APIView
-
-from django.http import Http404
 from rest_framework import status
 
-from demo.transmethod.tabale_file import json_file,generate_file_from_time,get_now_time,generate_file_from_timestr
+from demo.serializers import SdmodelSerializer
+from demo.models import Sdmodel
+from demo.common.timefile import json_file,get_now_time,generate_file_from_timestr
 from demo.sdmethod import sd_em,sd_fa,sd_pca,sd_apri
-
-from django.utils import  timezone
-import datetime
-from django.utils.timezone import utc
-
-# Create your views here.
-
-#renderer_classes = (JSONRenderer, )
 
 BASE_DIR =os.path.dirname(os.path.abspath(__file__))
 
@@ -37,23 +24,14 @@ class SdViewSet(viewsets.ModelViewSet):
     serializer_class = SdmodelSerializer
 
 class ApiViewSet(APIView):
-    #renderer_classes = (JSONRenderer, )
+
     def post(self, request, format=None):
         table = request.data['table']
-        #current = datetime.datetime.utcnow().replace(tzinfo=utc)
-        #current = timezone.localtime(current)
-        #save_filename = BASE_DIR+"/data/table_upload.txt"
-        
-        #result_filename = save_filename[:-4] + "_result.dat"
         result_filename = None
-       
         data = request.data.dict()
         data["created_time"] = get_now_time()
         serializer = SdmodelSerializer(data=data)
         if serializer.is_valid():
-            #now = datetime.datetime.utcnow().replace(tzinfo=utc)
-            #now = timezone.localtime(now)
-            #v_data = serializer.validated_data
             serializer.save()
             seria_data = serializer.data
             date_str = seria_data.get("created")
@@ -110,7 +88,6 @@ class ApiViewSet(APIView):
                     cal_result["cal_error"] = "sd_apri  method cal error"
             else:
                 pass
-            
             #return Response(serializer.data, status=status.HTTP_201_CREATED)
             return Response(cal_result, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

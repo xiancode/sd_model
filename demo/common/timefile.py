@@ -1,8 +1,7 @@
 #!/usr/bin/env  python  
 #-*-coding=utf-8-*-
-import os
+
 import json
-from datetime import datetime
 import os.path
 import random
 import datetime
@@ -47,7 +46,7 @@ def generate_file_from_time(current,dir_name):
 
 def generate_file_from_timestr(date_str,time_str,dir_name):
     '''
-    generate file dir and filename from current time
+    generate file dir and filename from current time str
     '''
     dir_path = dir_name +os.path.sep +  date_str
     if os.path.exists(dir_path):
@@ -65,7 +64,6 @@ def get_now_time():
     result_time = current.strftime('%H-%M-%S')
     return str(result_time).decode()
         
-    
 if __name__ == "__main__":
     table = file_list(BASE_DIR + "/data/table.txt")
     encodedjson = json.dumps(table)

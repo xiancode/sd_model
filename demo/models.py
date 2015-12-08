@@ -2,9 +2,6 @@
 #-*-coding=utf-8-*-
 
 from django.db import models
-from demo.transmethod.tabale_file  import get_now_time
-
-# Create your models here.
 
 class Sdmodel(models.Model):
     created = models.DateField(auto_now_add=True)
