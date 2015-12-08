@@ -11,6 +11,7 @@ class Sdmodel(models.Model):
     table = models.TextField()
     c = models.CharField(max_length=10, blank=True, default='')
     s = models.CharField(max_length=10, blank=True, default='')
+    b = models.CharField(max_length=10, blank=True, default='')
     
     def __str__(self):              # __unicode__ on Python 2
         return self.sdmethod

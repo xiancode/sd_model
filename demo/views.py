@@ -16,7 +16,7 @@ from django.http import Http404
 from rest_framework import status
 
 from demo.transmethod.tabale_file import json_file,generate_file_from_time
-from demo.sdmethod import sd_em,sd_fa,sd_pca
+from demo.sdmethod import sd_em,sd_fa,sd_pca,sd_apri
 
 from django.utils import  timezone
 import datetime
@@ -81,8 +81,27 @@ class ApiViewSet(APIView):
                     cal_result = sd_pca.sd_pca(save_filename, int(c), result_name=None)
                 except Exception,e:
                     cal_result["cal_error"] = "sd_pca  method cal error"
-            elif sdmethod == "aprior":
-                pass
+            elif sdmethod == "sd_apri":
+                try:
+                    c = sdmethod = seria_data.get("c")
+                except Exception,e:
+                    cal_result["para_error"] = "can not  get 'c' from request"
+                
+                try:
+                    b = sdmethod = seria_data.get("b")
+                except Exception,e:
+                    cal_result["para_error"] = "can not  get 'b' from request"
+                
+                try:
+                    s = sdmethod = seria_data.get("s")
+                except Exception,e:
+                    cal_result["para_error"] = "can not  get 's' from request"
+                    
+                try:
+                    cal_result = sd_apri.sd_apri_main(save_filename, b, s, c,result_name=None)
+                    #cal_result = sd_pca.sd_pca(save_filename, int(c), result_name=None)
+                except Exception,e:
+                    cal_result["cal_error"] = "sd_apri  method cal error"
             
             #return Response(serializer.data, status=status.HTTP_201_CREATED)
             return Response(cal_result, status=status.HTTP_201_CREATED)
