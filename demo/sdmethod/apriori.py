@@ -12,7 +12,6 @@ import sys
 from itertools import chain, combinations
 from collections import defaultdict
 from optparse import OptionParser
-from _codecs import encode
 from numpy import record
 
 def tuple_str(tu):

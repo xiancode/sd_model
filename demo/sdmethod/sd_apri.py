@@ -20,13 +20,13 @@ CFG_FILE_NAME  = ''
 LOG_FILE_NAME  = ''
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-LOG_DIR = os.path.dirname(BASE_DIR)
+PAR_DIR = os.path.dirname(BASE_DIR)
 
 logging.basicConfig(level=logging.DEBUG,
                 format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
                 datefmt='%a, %d %b %Y %H:%M:%S',
                 #filename="C:\\LOG\\apriori.log",
-                filename= LOG_DIR + os.path.sep + "LOG" + os.path.sep + "apriori.log",
+                filename= PAR_DIR + os.path.sep + "LOG" + os.path.sep + "apriori.log",
                 filemode='a')
 
 def get_cfg_filename(base_dir):

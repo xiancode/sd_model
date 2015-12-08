@@ -17,10 +17,13 @@ import sys
 import logging
 import os
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+PAR_DIR = os.path.dirname(BASE_DIR)
+
 logging.basicConfig(level=logging.DEBUG,
                 format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
                 datefmt='%a, %d %b %Y %H:%M:%S',
-                filename="C:\\LOG\\factor_analysis.log",
+                filename= PAR_DIR + os.path.sep + "LOG" + os.path.sep + "apriori.log",
                 filemode='a')
 
 #global area_list
