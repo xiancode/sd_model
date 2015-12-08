@@ -15,7 +15,7 @@ from rest_framework.views import APIView
 from django.http import Http404
 from rest_framework import status
 
-from demo.transmethod.tabale_file import json_file,generate_file_from_time,get_now_time
+from demo.transmethod.tabale_file import json_file,generate_file_from_time,get_now_time,generate_file_from_timestr
 from demo.sdmethod import sd_em,sd_fa,sd_pca,sd_apri
 
 from django.utils import  timezone
@@ -40,13 +40,13 @@ class ApiViewSet(APIView):
     #renderer_classes = (JSONRenderer, )
     def post(self, request, format=None):
         table = request.data['table']
-        current = datetime.datetime.utcnow().replace(tzinfo=utc)
-        current = timezone.localtime(current)
+        #current = datetime.datetime.utcnow().replace(tzinfo=utc)
+        #current = timezone.localtime(current)
         #save_filename = BASE_DIR+"/data/table_upload.txt"
-        save_filename = generate_file_from_time(current, BASE_DIR + os.path.sep + "data")
+        
         #result_filename = save_filename[:-4] + "_result.dat"
         result_filename = None
-        json_file(table, save_filename)
+       
         data = request.data.dict()
         data["created_time"] = get_now_time()
         serializer = SdmodelSerializer(data=data)
@@ -56,6 +56,10 @@ class ApiViewSet(APIView):
             #v_data = serializer.validated_data
             serializer.save()
             seria_data = serializer.data
+            date_str = seria_data.get("created")
+            time_str = seria_data.get("created_time")
+            save_filename = generate_file_from_timestr(date_str,time_str, BASE_DIR + os.path.sep + "data")
+            json_file(table, save_filename)
             sdmethod = seria_data.get("sdmethod")
             cal_result = {}
             if sdmethod == "sd_em":
