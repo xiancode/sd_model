@@ -20,9 +20,13 @@ import os
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 PAR_DIR = os.path.dirname(BASE_DIR)
 
-
-
-#global area_list
+fa_logger = logging.getLogger('SD_API.Method.FA')
+fa_logger.setLevel(logging.INFO)
+fh = logging.FileHandler(PAR_DIR + os.path.sep + "LOG" + os.path.sep + "SD_FA.log")
+fh.setLevel(logging.INFO)
+formatter = logging.Formatter('%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s')
+fh.setFormatter(formatter)
+fa_logger.addHandler(fh)
 
 def get_factor_weight(data,n_components):
     '''
@@ -59,25 +63,19 @@ def data_set(fname):
     #清洗后的的确列表
     cleaned_areas = cleaned_data.index
     cleaned_area_list = cleaned_areas.tolist()
-    logging.info("selected area:"+" ".join(area_list))
-    logging.info("cleaned  area:"+" ".join(cleaned_area_list))
+    fa_logger.info("selected area:"+" ".join(area_list))
+    fa_logger.info("cleaned  area:"+" ".join(cleaned_area_list))
     deleted_areas = set(area_list) - set(cleaned_area_list)
     if len(deleted_areas) >= 1:
-        logging.info("deleted areas:"+" ".join(deleted_areas))
-    logging.info("selected indi:"+" ".join(indi_list))
+        fa_logger.info("deleted areas:"+" ".join(deleted_areas))
+    fa_logger.info("selected indi:"+" ".join(indi_list))
     return cleaned_data,cleaned_area_list
 
 def sd_fa(fname,components,result_name):
     '''
     pca 计算
     '''
-    logging.basicConfig(level=logging.DEBUG,
-                format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
-                datefmt='%a, %d %b %Y %H:%M:%S',
-                filename= PAR_DIR + os.path.sep + "LOG" + os.path.sep + "SD_FA.log",
-                filemode='a')
-    
-    logging.info("start sd_fa")
+    fa_logger.info("start sd_fa")
     result_dict = {}
     cl_data,area_list = data_set(fname)
     values = cl_data.values
@@ -87,7 +85,7 @@ def sd_fa(fname,components,result_name):
     try:
         fa.fit(values)
     except Exception,e:
-            logging.error("factor analysis fit error")
+            fa_logger.error("factor analysis fit error")
             sys.exit()
     #print(fa.n_components)
     #print(fa.components_)
@@ -142,12 +140,12 @@ def sd_fa(fname,components,result_name):
         result_dict["rank_1"] = rank_1
     else:
         print "caculated result not equal to area_list"
-        logging.error("caculated result not equal to area_list")
+        fa_logger.error("caculated result not equal to area_list")
         sys.exit()
     if result_name:
         fout.close()
         print "save to",result_name
-        logging.info("save to"+result_name)
+        fa_logger.info("save to"+result_name)
     return result_dict
     
 if __name__ == "__main__":

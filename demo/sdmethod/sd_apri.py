@@ -22,6 +22,13 @@ LOG_FILE_NAME  = ''
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 PAR_DIR = os.path.dirname(BASE_DIR)
 
+apri_logger = logging.getLogger('SD_API.Method.APRI')
+apri_logger.setLevel(logging.INFO)
+fh = logging.FileHandler(PAR_DIR + os.path.sep + "LOG" + os.path.sep + "SD_APRI.log")
+fh.setLevel(logging.INFO)
+formatter = logging.Formatter('%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s')
+fh.setFormatter(formatter)
+apri_logger.addHandler(fh)
 
 
 def get_cfg_filename(base_dir):
@@ -192,15 +199,8 @@ def indicator_classify(datafile,buckets_cls):
 def sd_apri_main(inFile,buckets_cls,minSupport, minConfidence,result_name):
     '''
     
-    '''
-    logging.basicConfig(level=logging.DEBUG,
-                format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
-                datefmt='%a, %d %b %Y %H:%M:%S',
-                #filename="C:\\LOG\\apriori.log",
-                filename= PAR_DIR + os.path.sep + "LOG" + os.path.sep + "SD_APRI.log",
-                filemode='a')
-    
-    logging.info("start sd_apri")
+    ''' 
+    apri_logger.info("start sd_apri")
     #cfg_file_name = get_cfg_filename(BASE_DIR)
     get_cfg_filename(BASE_DIR)
     apri_indi_set = indicator_classify(inFile,buckets_cls)
@@ -211,7 +211,7 @@ def sd_apri_main(inFile,buckets_cls,minSupport, minConfidence,result_name):
     
             
 if __name__ == "__main__":
-    logging.info("start indicator_apriori")
+    apri_logger.info("start indicator_apriori")
     optparser = OptionParser()
     optparser.add_option('-f', '--inputFile',
                          dest='input',
@@ -255,7 +255,7 @@ if __name__ == "__main__":
     #cfg_file_name = get_cfg_filename(BASE_DIR)
     pos = full_name.find(".txt")
     result_name = full_name[:pos] + "_result.txt"
-    logging.info("start apriori!")
+    apri_logger.info("start apriori!")
     try:
         #logging.info("in try!")
         #logging.info("inFile",str(inFile))
@@ -267,9 +267,9 @@ if __name__ == "__main__":
 #         apriori.printResults(items, rules,result_name)
         sd_apri_main(inFile, buckets_cls,minSupport, minConfidence)
     except Exception,e:
-        logging.error("apriori api error",str(e))
+        apri_logger.error("apriori api error",str(e))
     else:
-        logging.info("apriori api has execute successfully")
+        apri_logger.info("apriori api has execute successfully")
     print "End!!"
     
     

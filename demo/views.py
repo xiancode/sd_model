@@ -15,12 +15,6 @@ from demo.sdmethod import sd_em,sd_fa,sd_pca,sd_apri
 
 BASE_DIR =os.path.dirname(os.path.abspath(__file__))
 
-# logging.basicConfig(level=logging.DEBUG,
-#                     format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
-#                     datefmt='%a, %d %b %Y %H:%M:%S',
-#                     filename= BASE_DIR + os.path.sep + "LOG" + os.path.sep + "VIEWS.log",
-#                     filemode='a')
-
 logger = logging.getLogger('SD_API')
 logger.setLevel(logging.INFO)
 fh = logging.FileHandler(BASE_DIR + os.path.sep + "LOG" + os.path.sep + "SD_API.log")
