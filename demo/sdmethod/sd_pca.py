@@ -22,11 +22,14 @@ import os
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 PAR_DIR = os.path.dirname(BASE_DIR)
 
-logging.basicConfig(level=logging.DEBUG,
-                format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
-                datefmt='%a, %d %b %Y %H:%M:%S',
-                filename= PAR_DIR + os.path.sep + "LOG" + os.path.sep + "apriori.log",
-                filemode='a')
+pca_logger = logging.getLogger('SD_API.Method.PCA')
+pca_logger.setLevel(logging.INFO)
+fh = logging.FileHandler(PAR_DIR + os.path.sep + "LOG" + os.path.sep + "SD_PCA.log")
+fh.setLevel(logging.INFO)
+formatter = logging.Formatter('%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s')
+fh.setFormatter(formatter)
+pca_logger.addHandler(fh)
+
 
 def data_set(fname):
     '''
@@ -42,7 +45,7 @@ def data_set(fname):
     cleaned_data = pivoted.dropna(axis=0)
     areas = cleaned_data.index
     area_list = areas.tolist()
-    logging.info("selected area:"+" ".join(area_list))
+    pca_logger.info("selected area:" + " ".join(area_list))
     
     return cleaned_data,area_list
 
@@ -50,6 +53,7 @@ def sd_pca(fname,components,result_name):
     '''
     pca 计算
     '''
+    pca_logger.info("start sd_pca")
     result_dict = {}
     cl_data,area_list = data_set(fname)
     values = cl_data.values
@@ -69,8 +73,8 @@ def sd_pca(fname,components,result_name):
     indicators = cl_data.columns
     indi_list = indicators.tolist()
     
-    logging.info("cleaned  area:"+" ".join(area_list))
-    logging.info("selected indi:"+" ".join(indi_list))
+    pca_logger.info("cleaned  area:"+" ".join(area_list))
+    pca_logger.info("selected indi:"+" ".join(indi_list))
     result_col =  cl_data.columns
     result_col.name = "指标"
     result_idx = ["主成分"+str(i+1) for i in range(components)]

@@ -20,11 +20,7 @@ from optparse import OptionParser
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 PAR_DIR = os.path.dirname(BASE_DIR)
 
-logging.basicConfig(level=logging.DEBUG,
-                    format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
-                    datefmt='%a, %d %b %Y %H:%M:%S',
-                    filename= PAR_DIR + os.path.sep + "LOG" + os.path.sep + "apriori.log",
-                    filemode='a')
+
 
 
 def zeor_one_norm(values):
@@ -43,6 +39,12 @@ def data_set(fname):
         把数据转化为二维表格,每行表示一个时间段,每列表示一个指标
         删除包含空值的行
     '''
+    logging.basicConfig(level=logging.DEBUG,
+                    format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
+                    datefmt='%a, %d %b %Y %H:%M:%S',
+                    filename= PAR_DIR + os.path.sep + "LOG" + os.path.sep + "SD_EM.log",
+                    filemode='a')
+    
     df = pd.read_csv(fname,"\t")
     #data = df.rename(columns={'月份顺序排序':'m_order','正式指标':'indicator','正式数值':'value'})
     data = df.rename(columns={'地区':'area','正式指标':'indicator','正式数值':'value'})
@@ -57,6 +59,7 @@ def sd_em(fname,result_name):
     '''
     entropy method计算   http://blog.sina.com.cn/s/blog_6163bdeb0102dvow.html
     '''
+    logging.info("start sd_em")
     cl_data,area_list,indicators = data_set(fname)
     origin_values = cl_data.values
     indi_list = indicators.tolist()

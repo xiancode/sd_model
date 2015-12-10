@@ -20,11 +20,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 PAR_DIR = os.path.dirname(BASE_DIR)
 
-logging.basicConfig(level=logging.DEBUG,
-                format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
-                datefmt='%a, %d %b %Y %H:%M:%S',
-                filename= PAR_DIR + os.path.sep + "LOG" + os.path.sep + "apriori.log",
-                filemode='a')
+
 
 #global area_list
 
@@ -75,6 +71,13 @@ def sd_fa(fname,components,result_name):
     '''
     pca 计算
     '''
+    logging.basicConfig(level=logging.DEBUG,
+                format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
+                datefmt='%a, %d %b %Y %H:%M:%S',
+                filename= PAR_DIR + os.path.sep + "LOG" + os.path.sep + "SD_FA.log",
+                filemode='a')
+    
+    logging.info("start sd_fa")
     result_dict = {}
     cl_data,area_list = data_set(fname)
     values = cl_data.values

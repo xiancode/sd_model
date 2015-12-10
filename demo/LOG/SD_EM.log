@@ -1,0 +1,49 @@
+Tue, 08 Dec 2015 19:02:34 utils.py[line:89] DEBUG (0.164) QUERY = u'SELECT "demo_sdmodel"."id", "demo_sdmodel"."created", "demo_sdmodel"."created_time", "demo_sdmodel"."sdmethod", "demo_sdmodel"."table", "demo_sdmodel"."c", "demo_sdmodel"."s", "demo_sdmodel"."b" FROM "demo_sdmodel" LIMIT 21' - PARAMS = (); args=()
+Tue, 08 Dec 2015 19:03:33 utils.py[line:89] DEBUG (0.001) QUERY = u'SELECT "demo_sdmodel"."id", "demo_sdmodel"."created", "demo_sdmodel"."created_time", "demo_sdmodel"."sdmethod", "demo_sdmodel"."table", "demo_sdmodel"."c", "demo_sdmodel"."s", "demo_sdmodel"."b" FROM "demo_sdmodel" LIMIT 21' - PARAMS = (); args=()
+Tue, 08 Dec 2015 19:07:08 utils.py[line:89] DEBUG (0.001) QUERY = u'SELECT "demo_sdmodel"."id", "demo_sdmodel"."created", "demo_sdmodel"."created_time", "demo_sdmodel"."sdmethod", "demo_sdmodel"."table", "demo_sdmodel"."c", "demo_sdmodel"."s", "demo_sdmodel"."b" FROM "demo_sdmodel" LIMIT 21' - PARAMS = (); args=()
+Tue, 08 Dec 2015 19:10:12 utils.py[line:89] DEBUG (0.001) QUERY = u'SELECT "demo_sdmodel"."id", "demo_sdmodel"."created", "demo_sdmodel"."created_time", "demo_sdmodel"."sdmethod", "demo_sdmodel"."table", "demo_sdmodel"."c", "demo_sdmodel"."s", "demo_sdmodel"."b" FROM "demo_sdmodel" LIMIT 21' - PARAMS = (); args=()
+Tue, 08 Dec 2015 19:13:17 utils.py[line:89] DEBUG (0.002) QUERY = u'SELECT "demo_sdmodel"."id", "demo_sdmodel"."created", "demo_sdmodel"."created_time", "demo_sdmodel"."sdmethod", "demo_sdmodel"."table", "demo_sdmodel"."c", "demo_sdmodel"."s", "demo_sdmodel"."b" FROM "demo_sdmodel" LIMIT 21' - PARAMS = (); args=()
+Tue, 08 Dec 2015 19:13:26 utils.py[line:89] DEBUG (0.000) QUERY = u'BEGIN' - PARAMS = (); args=None
+Tue, 08 Dec 2015 19:13:26 utils.py[line:89] DEBUG (0.001) QUERY = u'INSERT INTO "demo_sdmodel" ("created", "created_time", "sdmethod", "table", "c", "s", "b") VALUES (%s, %s, %s, %s, %s, %s, %s)' - PARAMS = (u'2015-12-08', u'19-13-24', u'test', u'test', u'', u'', u''); args=[u'2015-12-08', u'19-13-24', u'test', u'test', '', '', '']
+Tue, 08 Dec 2015 19:13:37 views.py[line:49] INFO cal...........
+Tue, 08 Dec 2015 19:17:14 utils.py[line:89] DEBUG (0.001) QUERY = u'SELECT "demo_sdmodel"."id", "demo_sdmodel"."created", "demo_sdmodel"."created_time", "demo_sdmodel"."sdmethod", "demo_sdmodel"."table", "demo_sdmodel"."c", "demo_sdmodel"."s", "demo_sdmodel"."b" FROM "demo_sdmodel" LIMIT 21' - PARAMS = (); args=()
+Tue, 08 Dec 2015 19:17:22 utils.py[line:89] DEBUG (0.000) QUERY = u'BEGIN' - PARAMS = (); args=None
+Tue, 08 Dec 2015 19:17:22 utils.py[line:89] DEBUG (0.001) QUERY = u'INSERT INTO "demo_sdmodel" ("created", "created_time", "sdmethod", "table", "c", "s", "b") VALUES (%s, %s, %s, %s, %s, %s, %s)' - PARAMS = (u'2015-12-08', u'19-17-19', u'sd_pca', u'test', u'', u'', u''); args=[u'2015-12-08', u'19-17-19', u'sd_pca', u'test', '', '', '']
+Tue, 08 Dec 2015 19:17:33 views.py[line:49] INFO cal...........
+Tue, 08 Dec 2015 19:22:23 utils.py[line:89] DEBUG (0.000) QUERY = u'BEGIN' - PARAMS = (); args=None
+Tue, 08 Dec 2015 19:22:23 utils.py[line:89] DEBUG (0.001) QUERY = u'INSERT INTO "demo_sdmodel" ("created", "created_time", "sdmethod", "table", "c", "s", "b") VALUES (%s, %s, %s, %s, %s, %s, %s)' - PARAMS = (u'2015-12-08', u'19-22-23', u'sd_pca', u'test', u'', u'', u''); args=[u'2015-12-08', u'19-22-23', u'sd_pca', u'test', '', '', '']
+Tue, 08 Dec 2015 19:22:23 views.py[line:49] INFO cal...........
+Tue, 08 Dec 2015 19:22:23 __init__.py[line:249] DEBUG Successfuly imported extension module "markdown.extensions.headerid".
+Tue, 08 Dec 2015 19:22:23 __init__.py[line:190] DEBUG Successfully loaded extension "markdown.extensions.headerid.HeaderIdExtension".
+Tue, 08 Dec 2015 19:23:39 utils.py[line:89] DEBUG (0.000) QUERY = u'BEGIN' - PARAMS = (); args=None
+Tue, 08 Dec 2015 19:23:39 utils.py[line:89] DEBUG (0.154) QUERY = u'INSERT INTO "demo_sdmodel" ("created", "created_time", "sdmethod", "table", "c", "s", "b") VALUES (%s, %s, %s, %s, %s, %s, %s)' - PARAMS = (u'2015-12-08', u'19-23-39', u'sd_pca', u'test', u'', u'', u''); args=[u'2015-12-08', u'19-23-39', u'sd_pca', u'test', '', '', '']
+Tue, 08 Dec 2015 19:23:39 views.py[line:49] INFO cal...........
+Tue, 08 Dec 2015 19:23:39 __init__.py[line:249] DEBUG Successfuly imported extension module "markdown.extensions.headerid".
+Tue, 08 Dec 2015 19:23:39 __init__.py[line:190] DEBUG Successfully loaded extension "markdown.extensions.headerid.HeaderIdExtension".
+Tue, 08 Dec 2015 19:23:57 utils.py[line:89] DEBUG (0.000) QUERY = u'BEGIN' - PARAMS = (); args=None
+Tue, 08 Dec 2015 19:23:57 utils.py[line:89] DEBUG (0.001) QUERY = u'INSERT INTO "demo_sdmodel" ("created", "created_time", "sdmethod", "table", "c", "s", "b") VALUES (%s, %s, %s, %s, %s, %s, %s)' - PARAMS = (u'2015-12-08', u'19-23-57', u'sd_pca', u'test', u'', u'', u''); args=[u'2015-12-08', u'19-23-57', u'sd_pca', u'test', '', '', '']
+Tue, 08 Dec 2015 19:23:57 views.py[line:49] INFO cal...........
+Tue, 08 Dec 2015 19:23:57 __init__.py[line:249] DEBUG Successfuly imported extension module "markdown.extensions.headerid".
+Tue, 08 Dec 2015 19:23:57 __init__.py[line:190] DEBUG Successfully loaded extension "markdown.extensions.headerid.HeaderIdExtension".
+Tue, 08 Dec 2015 19:25:33 utils.py[line:89] DEBUG (0.002) QUERY = u'SELECT "demo_sdmodel"."id", "demo_sdmodel"."created", "demo_sdmodel"."created_time", "demo_sdmodel"."sdmethod", "demo_sdmodel"."table", "demo_sdmodel"."c", "demo_sdmodel"."s", "demo_sdmodel"."b" FROM "demo_sdmodel" LIMIT 21' - PARAMS = (); args=()
+Tue, 08 Dec 2015 19:25:44 utils.py[line:89] DEBUG (0.000) QUERY = u'BEGIN' - PARAMS = (); args=None
+Tue, 08 Dec 2015 19:25:44 utils.py[line:89] DEBUG (0.001) QUERY = u'INSERT INTO "demo_sdmodel" ("created", "created_time", "sdmethod", "table", "c", "s", "b") VALUES (%s, %s, %s, %s, %s, %s, %s)' - PARAMS = (u'2015-12-08', u'19-25-40', u'sd_pca', u'test', u'', u'', u''); args=[u'2015-12-08', u'19-25-40', u'sd_pca', u'test', '', '', '']
+Tue, 08 Dec 2015 19:25:55 views.py[line:49] INFO cal...........
+Tue, 08 Dec 2015 19:27:22 __init__.py[line:249] DEBUG Successfuly imported extension module "markdown.extensions.headerid".
+Tue, 08 Dec 2015 19:27:22 __init__.py[line:190] DEBUG Successfully loaded extension "markdown.extensions.headerid.HeaderIdExtension".
+Tue, 08 Dec 2015 19:27:36 utils.py[line:89] DEBUG (0.000) QUERY = u'BEGIN' - PARAMS = (); args=None
+Tue, 08 Dec 2015 19:27:36 utils.py[line:89] DEBUG (0.002) QUERY = u'INSERT INTO "demo_sdmodel" ("created", "created_time", "sdmethod", "table", "c", "s", "b") VALUES (%s, %s, %s, %s, %s, %s, %s)' - PARAMS = (u'2015-12-08', u'19-27-34', u'sd_pca', u'test', u'', u'', u''); args=[u'2015-12-08', u'19-27-34', u'sd_pca', u'test', '', '', '']
+Tue, 08 Dec 2015 20:17:43 views.py[line:49] INFO cal...........
+Wed, 09 Dec 2015 12:55:23 utils.py[line:89] DEBUG (0.002) QUERY = u'SELECT "demo_sdmodel"."id", "demo_sdmodel"."created", "demo_sdmodel"."created_time", "demo_sdmodel"."sdmethod", "demo_sdmodel"."table", "demo_sdmodel"."c", "demo_sdmodel"."s", "demo_sdmodel"."b" FROM "demo_sdmodel" LIMIT 21' - PARAMS = (); args=()
+Wed, 09 Dec 2015 13:01:48 utils.py[line:89] DEBUG (0.000) QUERY = u'BEGIN' - PARAMS = (); args=None
+Wed, 09 Dec 2015 13:01:48 utils.py[line:89] DEBUG (0.001) QUERY = u'INSERT INTO "demo_sdmodel" ("created", "created_time", "sdmethod", "table", "c", "s", "b") VALUES (%s, %s, %s, %s, %s, %s, %s)' - PARAMS = (u'2015-12-09', u'12-55-34', u'sd_pca', u'test', u'2', u'', u''); args=[u'2015-12-09', u'12-55-34', u'sd_pca', u'test', u'2', '', '']
+Wed, 09 Dec 2015 13:01:56 utils.py[line:89] DEBUG (0.000) QUERY = u'BEGIN' - PARAMS = (); args=None
+Wed, 09 Dec 2015 13:01:56 utils.py[line:89] DEBUG (0.001) QUERY = u'INSERT INTO "demo_sdmodel" ("created", "created_time", "sdmethod", "table", "c", "s", "b") VALUES (%s, %s, %s, %s, %s, %s, %s)' - PARAMS = (u'2015-12-09', u'13-01-52', u'sd_pca', u'test', u'2', u'', u''); args=[u'2015-12-09', u'13-01-52', u'sd_pca', u'test', u'2', '', '']
+Wed, 09 Dec 2015 13:02:08 views.py[line:49] INFO cal...........
+Wed, 09 Dec 2015 13:02:21 views.py[line:49] INFO cal...........
+Wed, 09 Dec 2015 13:02:37 sd_pca.py[line:53] INFO start sd_pca
+Wed, 09 Dec 2015 13:02:51 sd_pca.py[line:53] INFO start sd_pca
+Wed, 09 Dec 2015 13:02:52 __init__.py[line:249] DEBUG Successfuly imported extension module "markdown.extensions.headerid".
+Wed, 09 Dec 2015 13:02:52 __init__.py[line:190] DEBUG Successfully loaded extension "markdown.extensions.headerid.HeaderIdExtension".
+Wed, 09 Dec 2015 13:02:54 __init__.py[line:249] DEBUG Successfuly imported extension module "markdown.extensions.headerid".
+Wed, 09 Dec 2015 13:02:54 __init__.py[line:190] DEBUG Successfully loaded extension "markdown.extensions.headerid.HeaderIdExtension".

@@ -22,12 +22,7 @@ LOG_FILE_NAME  = ''
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 PAR_DIR = os.path.dirname(BASE_DIR)
 
-logging.basicConfig(level=logging.DEBUG,
-                format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
-                datefmt='%a, %d %b %Y %H:%M:%S',
-                #filename="C:\\LOG\\apriori.log",
-                filename= PAR_DIR + os.path.sep + "LOG" + os.path.sep + "apriori.log",
-                filemode='a')
+
 
 def get_cfg_filename(base_dir):
     '''
@@ -198,6 +193,14 @@ def sd_apri_main(inFile,buckets_cls,minSupport, minConfidence,result_name):
     '''
     
     '''
+    logging.basicConfig(level=logging.DEBUG,
+                format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
+                datefmt='%a, %d %b %Y %H:%M:%S',
+                #filename="C:\\LOG\\apriori.log",
+                filename= PAR_DIR + os.path.sep + "LOG" + os.path.sep + "SD_APRI.log",
+                filemode='a')
+    
+    logging.info("start sd_apri")
     #cfg_file_name = get_cfg_filename(BASE_DIR)
     get_cfg_filename(BASE_DIR)
     apri_indi_set = indicator_classify(inFile,buckets_cls)

@@ -1,0 +1,7 @@
+Wed, 09 Dec 2015 13:11:53 utils.py[line:89] DEBUG (0.001) QUERY = u'SELECT "demo_sdmodel"."id", "demo_sdmodel"."created", "demo_sdmodel"."created_time", "demo_sdmodel"."sdmethod", "demo_sdmodel"."table", "demo_sdmodel"."c", "demo_sdmodel"."s", "demo_sdmodel"."b" FROM "demo_sdmodel" LIMIT 21' - PARAMS = (); args=()
+Wed, 09 Dec 2015 13:12:04 utils.py[line:89] DEBUG (0.000) QUERY = u'BEGIN' - PARAMS = (); args=None
+Wed, 09 Dec 2015 13:12:04 utils.py[line:89] DEBUG (0.001) QUERY = u'INSERT INTO "demo_sdmodel" ("created", "created_time", "sdmethod", "table", "c", "s", "b") VALUES (%s, %s, %s, %s, %s, %s, %s)' - PARAMS = (u'2015-12-09', u'13-12-01', u'sd_pca', u'test', u'2', u'', u''); args=[u'2015-12-09', u'13-12-01', u'sd_pca', u'test', u'2', '', '']
+Wed, 09 Dec 2015 13:12:28 views.py[line:49] INFO cal...........
+Wed, 09 Dec 2015 13:12:34 sd_pca.py[line:55] INFO start sd_pca
+Wed, 09 Dec 2015 13:13:10 __init__.py[line:249] DEBUG Successfuly imported extension module "markdown.extensions.headerid".
+Wed, 09 Dec 2015 13:13:10 __init__.py[line:190] DEBUG Successfully loaded extension "markdown.extensions.headerid.HeaderIdExtension".
