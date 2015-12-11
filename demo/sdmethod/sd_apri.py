@@ -30,7 +30,6 @@ formatter = logging.Formatter('%(asctime)s %(filename)s[line:%(lineno)d] %(level
 fh.setFormatter(formatter)
 apri_logger.addHandler(fh)
 
-
 def get_cfg_filename(base_dir):
     '''
         获取配置文件全名

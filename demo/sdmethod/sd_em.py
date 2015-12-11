@@ -16,7 +16,6 @@ import sys
 import os
 from optparse import OptionParser
 
-#global area_list
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 PAR_DIR = os.path.dirname(BASE_DIR)
 
@@ -28,7 +27,6 @@ formatter = logging.Formatter('%(asctime)s %(filename)s[line:%(lineno)d] %(level
 fh.setFormatter(formatter)
 em_logger.addHandler(fh)
 
-
 def zeor_one_norm(values):
     '''
     0-1 normalization translate
@@ -39,7 +37,6 @@ def zeor_one_norm(values):
     result = (values  - v_min)/diiff + 1
     return result
     
-
 def data_set(fname):
     '''
         把数据转化为二维表格,每行表示一个时间段,每列表示一个指标
@@ -115,6 +112,8 @@ def sd_em(fname,result_name):
         fout.write("\n")
         fout.write("\n===============================\n")
         
+    rank_one = []
+    rank_one.append(['diqu','defen'])    
     if len(area_list) == len(scores):
         area_scores = zip(scores_list,area_list)
         as_dict = dict((key,value) for key,value in area_scores)
@@ -138,7 +137,6 @@ def sd_em(fname,result_name):
     else:
         fout.close()
         print "save to ",result_name
-    
     
 if __name__ == "__main__":
     optparser = OptionParser()

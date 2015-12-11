@@ -7,7 +7,6 @@ author      : shizhongxian@126.com
 usage  $python sd_pca.py  -f table.txt -c 2 
 '''
 
-
 import pandas as pd
 import numpy as np
 from sklearn.decomposition import PCA
@@ -16,8 +15,6 @@ from optparse import OptionParser
 import sys
 import logging
 import os
-
-#global area_list
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 PAR_DIR = os.path.dirname(BASE_DIR)
@@ -30,7 +27,6 @@ formatter = logging.Formatter('%(asctime)s %(filename)s[line:%(lineno)d] %(level
 fh.setFormatter(formatter)
 pca_logger.addHandler(fh)
 
-
 def data_set(fname):
     '''
         把数据转化为二维表格,每行表示一个时间段,每列表示一个指标
@@ -39,14 +35,12 @@ def data_set(fname):
     df = pd.read_csv(fname,"\t")
     #data = df.rename(columns={'月份顺序排序':'m_order','正式指标':'indicator','正式数值':'value'})
     data = df.rename(columns={'地区':'area','正式指标':'indicator','正式数值':'value'})
-    
     pivoted = data.pivot('area','indicator','value')
     #删除空值行
     cleaned_data = pivoted.dropna(axis=0)
     areas = cleaned_data.index
     area_list = areas.tolist()
     pca_logger.info("selected area:" + " ".join(area_list))
-    
     return cleaned_data,area_list
 
 def sd_pca(fname,components,result_name):
@@ -61,11 +55,6 @@ def sd_pca(fname,components,result_name):
     #数据标准化
     values = preprocessing.scale(values)
     pca.fit(values)
-    
-    #print(pca.explained_variance_)
-    #print(pca.explained_variance_ratio_)
-    #print(pca.n_components)
-    #print(pca.components_)
     variance_ratio_ = pca.explained_variance_ratio_
     scores = np.dot(pca.transform(values),pca.explained_variance_ratio_)
     scores_list = scores.tolist()
@@ -89,6 +78,7 @@ def sd_pca(fname,components,result_name):
         fout.write("\n===============================\n")
     
     table_2 = []
+    table_2.append(['主成分','权重'])
     for i in range(len(result_idx)):
         if result_name:
             fout.write("%s,\t %.3f \n" %(result_idx[i],variance_ratio_[i]))
@@ -97,6 +87,7 @@ def sd_pca(fname,components,result_name):
     if result_name:
         fout.write("\n===============================\n")
     rank_1 = []
+    rank_1.append(['地区','综合得分'])
     if len(area_list) == len(scores):
         area_scores = zip(scores_list,area_list)
         as_dict = dict((key,value) for key,value in area_scores)
@@ -113,7 +104,6 @@ def sd_pca(fname,components,result_name):
         print "save to pca_result.txt"
     return result_dict
     
-    
 if __name__ == "__main__":
     optparser = OptionParser()
     optparser.add_option('-f', '--inputFile',
@@ -127,11 +117,9 @@ if __name__ == "__main__":
                          type='int')
     
     (options, args) = optparser.parse_args()
-    
-    
     if options.input is None:
             inFile = sys.stdin
-            inFile = 'PCApython2015113092218.txt'
+            #inFile = 'PCApython2015113092218.txt'
     elif options.input is not None:
             inFile = options.input
     else:

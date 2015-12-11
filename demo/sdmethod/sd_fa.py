@@ -98,12 +98,7 @@ def sd_fa(fname,components,result_name):
     result_col.name = "指标"
     result_idx = ["因子"+str(i+1) for i in range(components)]
     #输出因子权重
-    #con_tri_str_list = map(str, contri_ration)
-    #idx_contri = zip(result_idx,con_tri_str_list)
-    #print idx_contri
-    #for tmp in idx_contri:
-    #    print "\t".join(tmp)
-    
+
     result_data = pd.DataFrame(fa.components_,columns=result_col,index=result_idx)
     table_1 = result_data.values.tolist()
     result_dict["table_1"] = table_1
@@ -112,11 +107,11 @@ def sd_fa(fname,components,result_name):
     if result_name:
         result_data.to_csv(result_name,sep="\t",float_format='%8.4f')
     
-    #
     if result_name:
         fout = open(result_name,"a")
         fout.write("\n===============================\n")
     table_2 = []
+    table_2.append(['因子','权重'])
     for i in range(len(result_idx)):
         if result_name:
             fout.write("%s,\t %.3f \n" %(result_idx[i],contri_ration[i]))
@@ -126,6 +121,7 @@ def sd_fa(fname,components,result_name):
     result_dict["table_2"] = table_2
     
     rank_1 = []
+    rank_1.append(['地区','综合得分'])
     if len(area_list) == len(scores):
         area_scores = zip(scores_list,area_list)
         as_dict = dict((key,value) for key,value in area_scores)
