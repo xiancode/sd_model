@@ -13,6 +13,9 @@ from demo.models import Sdmodel
 from demo.common.timefile import json_file,get_now_time,generate_file_from_timestr
 from demo.sdmethod import sd_em,sd_fa,sd_pca,sd_apri
 
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
+
 BASE_DIR =os.path.dirname(os.path.abspath(__file__))
 
 logger = logging.getLogger('SD_API')
@@ -28,10 +31,14 @@ class SdViewSet(viewsets.ModelViewSet):
     
     '''
     #queryset = Sdmodel.objects.all().order_by('-sdmethod')
+    authentication_classes = (SessionAuthentication, BasicAuthentication)
+    permission_classes = (IsAuthenticated,)
     queryset = Sdmodel.objects.all()
     serializer_class = SdmodelSerializer
 
 class ApiViewSet(APIView):
+    authentication_classes = (BasicAuthentication,SessionAuthentication )
+    permission_classes = (IsAuthenticated,)
 
     def post(self, request, format=None):
         table = request.data['table']
