@@ -44,7 +44,7 @@ def generate_file_from_time(current,dir_name):
     full_path = os.path.join(dir_path,file_name)
     return full_path
 
-def generate_file_from_timestr(date_str,time_str,dir_name):
+def generate_file_from_timestr(date_str,time_str,dir_name,random_filename):
     '''
     generate file dir and filename from current time str
     '''
@@ -53,7 +53,7 @@ def generate_file_from_timestr(date_str,time_str,dir_name):
         pass
     else:
         os.mkdir(dir_path)
-    random_filename = str(random.random())[2:12]
+    #random_filename = str(random.random())[2:12]
     file_name = time_str+"-" + random_filename + ".dat"
     full_path = os.path.join(dir_path,file_name)
     return full_path

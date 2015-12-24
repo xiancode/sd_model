@@ -10,7 +10,7 @@ from rest_framework import status
 
 from demo.serializers import SdmodelSerializer
 from demo.models import Sdmodel
-from demo.common.timefile import json_file,get_now_time,generate_file_from_timestr
+from demo.common.timefile import json_file,get_now_time,generate_file_from_timestr,random_num_str
 from demo.sdmethod import sd_em,sd_fa,sd_pca,sd_apri
 
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
@@ -46,6 +46,8 @@ class ApiViewSet(APIView):
         data = request.data.copy()
         logger.info("New request")
         data["created_time"] = get_now_time()
+        data['rand_fname'] = random_num_str()
+        random_filename = random_num_str()
         serializer = SdmodelSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
@@ -53,8 +55,8 @@ class ApiViewSet(APIView):
             date_str = seria_data.get("created")
             time_str = seria_data.get("created_time")
             sdmethod = seria_data.get("sdmethod")
-            
-            save_filename = generate_file_from_timestr(date_str,time_str, BASE_DIR + os.path.sep + "data")
+            rand_fname = seria_data.get("rand_fname")
+            save_filename = generate_file_from_timestr(date_str,time_str, BASE_DIR + os.path.sep + "data",rand_fname)
             json_file(table, save_filename)
             
             cal_result = {}

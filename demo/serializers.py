@@ -9,4 +9,4 @@ from demo.models import Sdmodel
 class SdmodelSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Sdmodel
-        fields = ('created','created_time','sdmethod','table','c','s','b')
+        fields = ('created','created_time','rand_fname','sdmethod','table','c','s','b')
