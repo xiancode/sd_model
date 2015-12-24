@@ -26,6 +26,59 @@ formatter = logging.Formatter('%(asctime)s %(filename)s[line:%(lineno)d] %(level
 fh.setFormatter(formatter)
 logger.addHandler(fh)
 
+def model_cal(seria_data,sdmethod,save_filename,result_filename=None):
+    '''
+    
+    '''
+    cal_result={}
+    if sdmethod == "sd_em":
+        try:
+            cal_result = sd_em.sd_em(save_filename, result_filename)
+        except Exception,e:
+            cal_result['cal_error']  = "sd_em method cal error"
+            logging.error("method  sd_em",e)
+    elif sdmethod == "sd_fa":
+        try:
+            c  = seria_data.get("c")
+        except Exception,e:
+            cal_result["para_error"] = "can not  get 'c' from request"        
+        try:
+            cal_result = sd_fa.sd_fa(save_filename, int(c), result_name=None)
+        except Exception,e:
+            cal_result["cal_error"] = "sd_fa method cal error"
+            logging.error("method  sd_fa",e)
+    elif sdmethod == "sd_pca":
+        try:
+            c  = seria_data.get("c")
+        except Exception,e:
+            cal_result["para_error"] = "can not  get 'c' from request"
+        try:
+            cal_result = sd_pca.sd_pca(save_filename, int(c), result_name=None)
+        except Exception,e:
+            cal_result["cal_error"] = "sd_pca  method cal error"
+            logging.error("method  sd_pca",str(e))
+    elif sdmethod == "sd_apri":
+        try:
+            c  = seria_data.get("c")
+        except Exception,e:
+            cal_result["para_error"] = "can not  get 'c' from request"
+        try:
+            b  = seria_data.get("b")
+        except Exception,e:
+            cal_result["para_error"] = "can not  get 'b' from request"
+        try:
+            s  = seria_data.get("s")
+        except Exception,e:
+            cal_result["para_error"] = "can not  get 's' from request"
+        try:
+            cal_result = sd_apri.sd_apri_main(save_filename, b, s, c,result_name=None)
+        except Exception,e:
+            cal_result["cal_error"] = "sd_apri  method cal error"
+            logging.error("method  sd_apri",e)
+        else:
+            cal_result["para_error"] = "can not find method  to cal"
+    return cal_result
+    
 class SdViewSet(viewsets.ModelViewSet):
     '''
     
@@ -47,7 +100,6 @@ class ApiViewSet(APIView):
         logger.info("New request")
         data["created_time"] = get_now_time()
         data['rand_fname'] = random_num_str()
-        random_filename = random_num_str()
         serializer = SdmodelSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
@@ -58,56 +110,7 @@ class ApiViewSet(APIView):
             rand_fname = seria_data.get("rand_fname")
             save_filename = generate_file_from_timestr(date_str,time_str, BASE_DIR + os.path.sep + "data",rand_fname)
             json_file(table, save_filename)
-            
-            cal_result = {}
-            #logging.info("cal...........")
-            if sdmethod == "sd_em":
-                try:
-                    cal_result = sd_em.sd_em(save_filename, result_filename)
-                except Exception,e:
-                    cal_result['cal_error']  = "sd_em method cal error"
-                    logging.error("method  sd_em",e)
-            elif sdmethod == "sd_fa":
-                try:
-                    c  = seria_data.get("c")
-                except Exception,e:
-                    cal_result["para_error"] = "can not  get 'c' from request"        
-                try:
-                    cal_result = sd_fa.sd_fa(save_filename, int(c), result_name=None)
-                except Exception,e:
-                    cal_result["cal_error"] = "sd_fa method cal error"
-                    logging.error("method  sd_fa",e)
-            elif sdmethod == "sd_pca":
-                try:
-                    c  = seria_data.get("c")
-                except Exception,e:
-                    cal_result["para_error"] = "can not  get 'c' from request"
-                try:
-                    cal_result = sd_pca.sd_pca(save_filename, int(c), result_name=None)
-                except Exception,e:
-                    cal_result["cal_error"] = "sd_pca  method cal error"
-                    logging.error("method  sd_pca",str(e))
-            elif sdmethod == "sd_apri":
-                try:
-                    c  = seria_data.get("c")
-                except Exception,e:
-                    cal_result["para_error"] = "can not  get 'c' from request"
-                try:
-                    b  = seria_data.get("b")
-                except Exception,e:
-                    cal_result["para_error"] = "can not  get 'b' from request"
-                try:
-                    s  = seria_data.get("s")
-                except Exception,e:
-                    cal_result["para_error"] = "can not  get 's' from request"
-                try:
-                    cal_result = sd_apri.sd_apri_main(save_filename, b, s, c,result_name=None)
-                except Exception,e:
-                    cal_result["cal_error"] = "sd_apri  method cal error"
-                    logging.error("method  sd_apri",e)
-            else:
-                cal_result["para_error"] = "can not find method  to cal"
-            #return Response(serializer.data, status=status.HTTP_201_CREATED)
+            cal_result = model_cal(seria_data, sdmethod, save_filename, result_filename)
             return Response(cal_result, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
