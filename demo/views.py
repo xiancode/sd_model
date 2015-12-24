@@ -12,6 +12,7 @@ from demo.serializers import SdmodelSerializer
 from demo.models import Sdmodel
 from demo.common.timefile import json_file,get_now_time,generate_file_from_timestr,random_num_str
 from demo.sdmethod import sd_em,sd_fa,sd_pca,sd_apri
+from demo.sdmethod.sd_method import get_all_sd_method
 
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
@@ -31,6 +32,9 @@ def model_cal(seria_data,sdmethod,save_filename,result_filename=None):
     
     '''
     cal_result={}
+    if sdmethod  not in get_all_sd_method():
+        cal_result['error'] = 'not found request ' + sdmethod + ' method. '
+        return cal_result
     if sdmethod == "sd_em":
         try:
             cal_result = sd_em.sd_em(save_filename, result_filename)
