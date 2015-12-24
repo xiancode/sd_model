@@ -52,11 +52,13 @@ class ApiViewSet(APIView):
             seria_data = serializer.data
             date_str = seria_data.get("created")
             time_str = seria_data.get("created_time")
+            sdmethod = seria_data.get("sdmethod")
+            
             save_filename = generate_file_from_timestr(date_str,time_str, BASE_DIR + os.path.sep + "data")
             json_file(table, save_filename)
-            sdmethod = seria_data.get("sdmethod")
+            
             cal_result = {}
-            logging.info("cal...........")
+            #logging.info("cal...........")
             if sdmethod == "sd_em":
                 try:
                     cal_result = sd_em.sd_em(save_filename, result_filename)
@@ -82,7 +84,7 @@ class ApiViewSet(APIView):
                     cal_result = sd_pca.sd_pca(save_filename, int(c), result_name=None)
                 except Exception,e:
                     cal_result["cal_error"] = "sd_pca  method cal error"
-                    logging.error("method  sd_pca",e)
+                    logging.error("method  sd_pca",str(e))
             elif sdmethod == "sd_apri":
                 try:
                     c  = seria_data.get("c")

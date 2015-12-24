@@ -63,6 +63,9 @@ def get_now_time():
     current = timezone.localtime(current)
     result_time = current.strftime('%H-%M-%S')
     return str(result_time).decode()
+
+def random_num_str():
+    return str(random.random())[2:12]
         
 if __name__ == "__main__":
     table = file_list(BASE_DIR + "/data/table.txt")
