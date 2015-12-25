@@ -16,6 +16,10 @@ from demo.sdmethod.sd_method import get_all_sd_method
 
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import api_view
+
+from rest_framework import mixins
+from rest_framework import generics
 
 BASE_DIR =os.path.dirname(os.path.abspath(__file__))
 
@@ -92,6 +96,50 @@ class SdViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)
     queryset = Sdmodel.objects.all()
     serializer_class = SdmodelSerializer
+    
+@api_view(['GET','POST'])
+def sdcal_list(request):
+    """
+    
+    """
+    if request.method == 'GET':
+        querysets = Sdmodel.objects.all()
+        serializer = SdmodelSerializer(querysets,many=True)
+        return Response(serializer.data)
+    elif request.method == 'POST':
+        serializer = SdmodelSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class CalList(APIView):
+    '''
+    
+    '''
+    def get(self,request,format=None):
+        querysets = Sdmodel.objects.all()
+        serializer = SdmodelSerializer(querysets,many=True)
+        return Response(serializer.data)
+    
+    def post(self,request,format=None):
+        serializer = SdmodelSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class CalListOne(mixins.ListModelMixin,
+                                 mixins.CreateModelMixin,
+                                 generics.GenericAPIView):
+    queryset = Sdmodel.objects.all()
+    serializer_class = SdmodelSerializer
+    
+    def get(self,request,*args,**kwargs):
+        return self.list(request,*args,**kwargs)
+    def post(self,request,*args,**kwargs):
+        return self.create(request,*args,**kwargs)    
+    
 
 class ApiViewSet(APIView):
     authentication_classes = (BasicAuthentication,SessionAuthentication )
