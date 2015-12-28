@@ -20,6 +20,7 @@ from rest_framework.decorators import api_view
 
 from rest_framework import mixins
 from rest_framework import generics
+from rest_framework.pagination import PageNumberPagination
 
 BASE_DIR =os.path.dirname(os.path.abspath(__file__))
 
@@ -139,6 +140,19 @@ class CalListOne(mixins.ListModelMixin,
         return self.list(request,*args,**kwargs)
     def post(self,request,*args,**kwargs):
         return self.create(request,*args,**kwargs)    
+
+class LargeResultsSetPagination(PageNumberPagination):
+    page_size = 10
+    page_size_query_param = 'page_size'
+    max_page_size = 10
+    
+class CalListTwo(generics.ListAPIView):
+    authentication_classes = (SessionAuthentication, BasicAuthentication)
+    permission_classes = (IsAuthenticated,)
+    queryset = Sdmodel.objects.all()
+    serializer_class = SdmodelSerializer
+    pagination_class = LargeResultsSetPagination
+    
     
 
 class ApiViewSet(APIView):
