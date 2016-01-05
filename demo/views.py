@@ -99,59 +99,58 @@ class SdViewSet(viewsets.ModelViewSet):
     serializer_class = SdmodelSerializer
     
 @api_view(['GET','POST'])
-def sdcal_list(request):
-    """
+# def sdcal_list(request):
+#     """
+#     
+#     """
+#     if request.method == 'GET':
+#         querysets = Sdmodel.objects.all()
+#         serializer = SdmodelSerializer(querysets,many=True)
+#         return Response(serializer.data)
+#     elif request.method == 'POST':
+#         serializer = SdmodelSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-    """
-    if request.method == 'GET':
-        querysets = Sdmodel.objects.all()
-        serializer = SdmodelSerializer(querysets,many=True)
-        return Response(serializer.data)
-    elif request.method == 'POST':
-        serializer = SdmodelSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+# class CalList(APIView):
+#     '''
+#     
+#     '''
+#     def get(self,request,format=None):
+#         querysets = Sdmodel.objects.all()
+#         serializer = SdmodelSerializer(querysets,many=True)
+#         return Response(serializer.data)
+#     
+#     def post(self,request,format=None):
+#         serializer = SdmodelSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-class CalList(APIView):
-    '''
-    
-    '''
-    def get(self,request,format=None):
-        querysets = Sdmodel.objects.all()
-        serializer = SdmodelSerializer(querysets,many=True)
-        return Response(serializer.data)
-    
-    def post(self,request,format=None):
-        serializer = SdmodelSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-class CalListOne(mixins.ListModelMixin,
-                                 mixins.CreateModelMixin,
-                                 generics.GenericAPIView):
-    queryset = Sdmodel.objects.all()
-    serializer_class = SdmodelSerializer
-    
-    def get(self,request,*args,**kwargs):
-        return self.list(request,*args,**kwargs)
-    def post(self,request,*args,**kwargs):
-        return self.create(request,*args,**kwargs)    
+# class CalListOne(mixins.ListModelMixin,
+#                                  mixins.CreateModelMixin,
+#                                  generics.GenericAPIView):
+#     queryset = Sdmodel.objects.all()
+#     serializer_class = SdmodelSerializer
+#     
+#     def get(self,request,*args,**kwargs):
+#         return self.list(request,*args,**kwargs)
+#     def post(self,request,*args,**kwargs):
+#         return self.create(request,*args,**kwargs)    
 
-class LargeResultsSetPagination(PageNumberPagination):
-    page_size = 10
-    page_size_query_param = 'page_size'
-    max_page_size = 10
-    
-class CalListTwo(generics.ListAPIView):
-    authentication_classes = (SessionAuthentication, BasicAuthentication)
-    permission_classes = (IsAuthenticated,)
-    queryset = Sdmodel.objects.all()
-    serializer_class = SdmodelSerializer
-    pagination_class = LargeResultsSetPagination
+# class LargeResultsSetPagination(PageNumberPagination):
+#     page_size = 10
+#     page_size_query_param = 'page_size'
+#     max_page_size = 10
+#     
+# class CalListTwo(viewsets.ModelViewSet):
+#     authentication_classes = (SessionAuthentication, BasicAuthentication)
+#     permission_classes = (IsAuthenticated,)
+#     queryset = Sdmodel.objects.all()
+#     serializer_class = SdmodelSerializer
     
     
 

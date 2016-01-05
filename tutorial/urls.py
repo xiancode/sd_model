@@ -20,15 +20,13 @@ from demo import views
 
 router = routers.DefaultRouter()
 router.register(r'demo', views.SdViewSet)
+#router.register(r'calculated_list_two', views.CalListTwo)
 #router.register(r'api',views.ApiViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    #url(r'^api/$', views.sdapi_view,name="sd_api"),
-    url(r'^api/$', views.ApiViewSet.as_view(),name="sd_api"),
-    #url(r'^calculated_list',views.sdcal_list),
-    url(r'^calculated_list_one',views.CalListOne),
-    url(r'^calculated_list_two',views.CalListTwo),
+    url(r'^api/$', views.ApiViewSet,name="sd_api"),
+    #url(r'^calculated_list_one',views.CalListOne),
 ]

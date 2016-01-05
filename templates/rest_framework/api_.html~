@@ -1,0 +1,7 @@
+{% extends "rest_framework/base.html" %}
+
+{# Override this template in your own templates directory to customize #}
+
+{% block bootstrap_theme %}
+    <link rel="stylesheet" href="bootstrap.min.css" type="text/css">
+{% endblock %}
