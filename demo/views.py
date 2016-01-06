@@ -97,7 +97,6 @@ class SdViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)
     queryset = Sdmodel.objects.all()
     serializer_class = SdmodelSerializer
-    
     def create(self,request,format=None):
         table = request.data['table']
         result_filename = None
@@ -119,11 +118,10 @@ class SdViewSet(viewsets.ModelViewSet):
             return Response(cal_result, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
  
-
+ 
 class ApiViewSet(APIView):
     authentication_classes = (BasicAuthentication,SessionAuthentication )
     permission_classes = (IsAuthenticated,)
-
     def post(self, request, format=None):
         table = request.data['table']
         result_filename = None
