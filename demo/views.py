@@ -16,11 +16,6 @@ from demo.sdmethod.sd_method import get_all_sd_method
 
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.decorators import api_view
-
-from rest_framework import mixins
-from rest_framework import generics
-from rest_framework.pagination import PageNumberPagination
 
 BASE_DIR =os.path.dirname(os.path.abspath(__file__))
 
