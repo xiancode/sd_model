@@ -92,17 +92,22 @@ class SdViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)
     queryset = Sdmodel.objects.all()
     serializer_class = SdmodelSerializer
+    
     def create(self,request,format=None):
+        cal_result = {}
         table = request.data['table']
         if type(table) == unicode:
-            table = eval(table)
+            try:
+                table = eval(table)
+            except Exception,e:
+                cal_result['error'] = " 'table' data format  error ."
+                return Response(cal_result, status=status.HTTP_201_CREATED)
         result_filename = None
         data = request.data.copy()
         logger.info("New request")
         data["created_time"] = get_now_time()
         data['rand_fname'] = random_num_str()
         serializer = SdmodelSerializer(data=data)
-        cal_result = {}
         if serializer.is_valid():
             serializer.save()
             seria_data = serializer.data
