@@ -94,12 +94,15 @@ class SdViewSet(viewsets.ModelViewSet):
     serializer_class = SdmodelSerializer
     def create(self,request,format=None):
         table = request.data['table']
+        if type(table) == unicode:
+            table = eval(table)
         result_filename = None
         data = request.data.copy()
         logger.info("New request")
         data["created_time"] = get_now_time()
         data['rand_fname'] = random_num_str()
         serializer = SdmodelSerializer(data=data)
+        cal_result = {}
         if serializer.is_valid():
             serializer.save()
             seria_data = serializer.data
@@ -108,7 +111,11 @@ class SdViewSet(viewsets.ModelViewSet):
             sdmethod = seria_data.get("sdmethod")
             rand_fname = seria_data.get("rand_fname")
             save_filename = generate_file_from_timestr(date_str,time_str, BASE_DIR + os.path.sep + "data",rand_fname)
-            json_file(table, save_filename)
+            try:
+                json_file(table, save_filename)
+            except Exception,e:
+                cal_result['error'] = " 'table' data format  error ."
+                return Response(cal_result, status=status.HTTP_201_CREATED)
             cal_result = model_cal(seria_data, sdmethod, save_filename, result_filename)
             return Response(cal_result, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -125,6 +132,7 @@ class ApiViewSet(APIView):
         data["created_time"] = get_now_time()
         data['rand_fname'] = random_num_str()
         serializer = SdmodelSerializer(data=data)
+        cal_result = {}
         if serializer.is_valid():
             serializer.save()
             seria_data = serializer.data
@@ -133,7 +141,11 @@ class ApiViewSet(APIView):
             sdmethod = seria_data.get("sdmethod")
             rand_fname = seria_data.get("rand_fname")
             save_filename = generate_file_from_timestr(date_str,time_str, BASE_DIR + os.path.sep + "data",rand_fname)
-            json_file(table, save_filename)
+            try:
+                json_file(table, save_filename)
+            except Exception,e:
+                cal_result['error'] = " 'table' data format  error ."
+                return Response(cal_result, status=status.HTTP_201_CREATED)
             cal_result = model_cal(seria_data, sdmethod, save_filename, result_filename)
             return Response(cal_result, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -17,7 +17,10 @@ def json_file(json_list,out_fname):
         line += "\n"
         result_str += line
     with open(out_fname,"w") as f:
-        f.write(result_str.encode("utf8"))        
+        if type(result_str) is unicode:
+            f.write(result_str.encode("utf8"))
+        elif type(result_str) is str:
+            f.write(result_str)
         
 def file_list(in_fname):
     result_list = []
