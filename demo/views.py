@@ -118,15 +118,3 @@ class ApiViewSet(APIView):
             return Response(cal_result, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
-# @api_view(['GET', 'POST'])
-# def sdapi_view(request):
-#     if request.method == 'POST':
-#         data  = request.data
-#         content = {'user_count': 'admin','group':'stuff'}
-#         #return Response({"message": "Got some data!", "data": request.data})
-#         return Response(content)
-#     return Response({"message": "Hello, world!"})
-
-
-    
-        
