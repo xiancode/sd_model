@@ -68,15 +68,20 @@ def sd_pca(fname,components,result_name):
     result_col.name = "指标"
     result_idx = ["主成分"+str(i+1) for i in range(components)]
     result_data = pd.DataFrame(pca.components_,columns=result_col,index=result_idx)
+    #table_1 主成分得分结果表
     table_1 = []
-    table_1.append(list(result_col.values))
-    table_1 += result_data.values.tolist()
+    table_1.append(['指标']+list(result_col.values))
+    comp_scores = result_data.values.tolist()
+    for i in range(components):
+        table_1.append([result_idx[i]] + comp_scores[i])
+    
+    #table_1 += result_data.values.tolist()
     result_dict['table_1'] = table_1
     if result_name:
         result_data.to_csv(result_name,sep="\t",float_format='%8.4f')
         fout = open(result_name,"a")
         fout.write("\n===============================\n")
-    
+    #table_2 主成分权重表
     table_2 = []
     table_2.append(['主成分','权重'])
     for i in range(len(result_idx)):
@@ -86,16 +91,17 @@ def sd_pca(fname,components,result_name):
     result_dict['table_2'] = table_2
     if result_name:
         fout.write("\n===============================\n")
+    #rank_1 地区排名表
     rank_1 = []
     rank_1.append(['地区','综合得分'])
     if len(area_list) == len(scores):
-        area_scores = zip(scores_list,area_list)
-        as_dict = dict((key,value) for key,value in area_scores)
-        scores_list.sort(reverse=True)
-        for score in scores_list:
+        area_scores_list = zip(area_list,scores_list)
+        area_scores_list = sorted(area_scores_list,key=lambda d:d[1],reverse=True)
+        for area_score in area_scores_list:
+            key,value = area_score
             if result_name:
-                fout.write("%s,%.5f \n" % (as_dict[score],score))
-            rank_1.append(["%s" % as_dict[score],"%.5f" % score ])
+                fout.write("%s,%.5f \n" % (key,value))
+            rank_1.append(["%s" % key,"%.5f" % value ])
         result_dict["rank_1"] = rank_1
     else:
         print "caculated result not equal to area_list"
@@ -126,10 +132,11 @@ if __name__ == "__main__":
             print 'No dataset filename specified, system with exit\n'
             sys.exit('System will exit')
     components = options.components
+    #inFile = "PCA.txt"
     full_name = os.path.realpath(inFile)
     pos = full_name.find(".txt")
     result_name = full_name[:pos] + "_result.txt"
-    result_dict = sd_pca(inFile,components,result_name=None)
+    result_dict = sd_pca(inFile,components,result_name=result_name)
     pass
     
     
