@@ -147,6 +147,7 @@ class ApiViewSet(APIView):
             rand_fname = seria_data.get("rand_fname")
             save_filename = generate_file_from_timestr(date_str,time_str, BASE_DIR + os.path.sep + "data",rand_fname)
             try:
+                #save data file
                 json_file(table, save_filename)
             except Exception,e:
                 cal_result['error'] = " 'table' data format  error ."
