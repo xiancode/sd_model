@@ -1,6 +1,5 @@
 *.pyc
 *.dat
-*.txt
 *.sqlite3
 *.log
 .project
