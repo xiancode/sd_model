@@ -100,7 +100,11 @@ def sd_fa(fname,components,result_name):
     #输出因子权重
 
     result_data = pd.DataFrame(fa.components_,columns=result_col,index=result_idx)
-    table_1 = result_data.values.tolist()
+    fact_scores = result_data.values.tolist()
+    table_1 = []
+    table_1.append(['指标']+list(result_col.values))
+    for i in range(components):
+        table_1.append([result_idx[i]] + fact_scores[i])
     result_dict["table_1"] = table_1
     #result_data = result_data.astype(float)
     #result_data.to_csv("fa_result.txt",sep="\t",float_format='%8.4f')
@@ -123,16 +127,13 @@ def sd_fa(fname,components,result_name):
     rank_1 = []
     rank_1.append(['地区','综合得分'])
     if len(area_list) == len(scores):
-        area_scores = zip(scores_list,area_list)
-        as_dict = dict((key,value) for key,value in area_scores)
-        #order by scores
-        #scores.sort
-        scores_list.sort(reverse=True)
-        for score in scores_list:
-            #print area_list[i],scores[i]
+        area_scores_list = zip(area_list,scores_list)
+        area_scores_list = sorted(area_scores_list,key=lambda d:d[1],reverse=True)
+        for area_score in area_scores_list:
+            key,value = area_score
             if result_name:
-                fout.write("%s,%.5f \n" % (as_dict[score],score))
-            rank_1.append(["%s" % as_dict[score] ,"%.5f" % score ])
+                fout.write("%s,%.5f \n" % (key,value))
+            rank_1.append(["%s" % key ,"%.5f" % value ])
         result_dict["rank_1"] = rank_1
     else:
         print "caculated result not equal to area_list"
@@ -168,13 +169,12 @@ if __name__ == "__main__":
             print 'No dataset filename specified, system with exit\n'
             sys.exit('System will exit')
     components = options.components
-    #
-    inFile = "table.txt"
-    components = 2
+    inFile = "FApython20151019145628.txt"
+    #components = 1
     full_name = os.path.realpath(inFile)
     pos = full_name.find(".txt")
     result_name = full_name[:pos] + "_result.txt"
-    result_dict = sd_fa(inFile,components,result_name=None)
+    result_dict = sd_fa(inFile,components,result_name=result_name)
     pass
     
     
