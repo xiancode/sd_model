@@ -18,7 +18,7 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 from rest_framework.permissions import IsAuthenticated
 
 BASE_DIR =os.path.dirname(os.path.abspath(__file__))
-
+#日志文件
 logger = logging.getLogger('SD_API')
 logger.setLevel(logging.INFO)
 fh = logging.FileHandler(BASE_DIR + os.path.sep + "LOG" + os.path.sep + "SD_API.log")
@@ -27,9 +27,13 @@ formatter = logging.Formatter('%(asctime)s %(filename)s[line:%(lineno)d] %(level
 fh.setFormatter(formatter)
 logger.addHandler(fh)
 
+#模型计算
 def model_cal(seria_data,sdmethod,save_filename,result_filename=None):
     '''
-    
+    seria_data : 序列化的传入数据
+    sdmethod : 计算方法\模型
+    save_filename:传入数据保存文件名
+    result_filename:计算结果保存文件名
     '''
     cal_result={}
     if sdmethod  not in get_all_sd_method():
