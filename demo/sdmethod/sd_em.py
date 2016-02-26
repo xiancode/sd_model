@@ -113,19 +113,16 @@ def sd_em(fname,result_name):
         fout.write("\n===============================\n")
         
     rank_one = []
-    rank_one.append(['diqu','defen'])    
+    rank_one.append(['地区','得分'])    
     if len(area_list) == len(scores):
-        area_scores = zip(scores_list,area_list)
-        as_dict = dict((key,value) for key,value in area_scores)
-        #order by scores
-        #scores.sort
-        scores_list.sort(reverse=True)
-        for score in scores_list:
-            #print area_list[i],scores[i]
+        area_scores_list = zip(area_list,scores_list)
+        area_scores_list = sorted(area_scores_list,key=lambda d:d[1],reverse=True)
+        for area_score in area_scores_list:
+            key,value = area_score
             if result_name is None:
-                rank_one.append([as_dict[score],score])
+                rank_one.append([key,value])
             else:
-                fout.write("%s,%.5f \n" % (as_dict[score],score))
+                fout.write("%s,%.5f \n" % (key,value))
     else:
         print "caculated result not equal to area_list"
     
@@ -159,9 +156,6 @@ if __name__ == "__main__":
     full_name = os.path.realpath(inFile)
     pos = full_name.find(".txt")
     result_name = full_name[:pos] + "_result.txt"
-    
-    #table_file_name = "table.txt"
-    #sdtool.rec2table("2013_10.txt", table_file_name)
     sd_em(full_name,result_name)
     
     
