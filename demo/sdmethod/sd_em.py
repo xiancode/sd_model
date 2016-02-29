@@ -87,16 +87,16 @@ def sd_em(fname,result_name):
     dispaly_w  = map(lambda x:str(round(x,4)),w)
     
     if result_name is None:
-        table_one = []
-        table_one.append(["指标"])
-        table_one[0] += indi_list
+        table_1 = []
+        table_1.append(["指标"])
+        table_1[0] += indi_list
         
-        table_one.append(["指标熵值"])
-        table_one[1] += display_e_
+        table_1.append(["指标熵值"])
+        table_1[1] += display_e_
         
-        table_one.append(["指标权重"])
-        table_one[2] += dispaly_w
-        rank_one = []
+        table_1.append(["指标权重"])
+        table_1[2] += dispaly_w
+        rank_1 = []
     else:
         fout = open(result_name,"w")
         fout.write("指标\t")
@@ -112,15 +112,15 @@ def sd_em(fname,result_name):
         fout.write("\n")
         fout.write("\n===============================\n")
         
-    rank_one = []
-    rank_one.append(['地区','得分'])    
+    rank_1 = []
+    rank_1.append(['地区','得分'])    
     if len(area_list) == len(scores):
         area_scores_list = zip(area_list,scores_list)
         area_scores_list = sorted(area_scores_list,key=lambda d:d[1],reverse=True)
         for area_score in area_scores_list:
             key,value = area_score
             if result_name is None:
-                rank_one.append([key,value])
+                rank_1.append([key,value])
             else:
                 fout.write("%s,%.5f \n" % (key,value))
     else:
@@ -128,8 +128,8 @@ def sd_em(fname,result_name):
     
     if result_name is None:
         result_dict = {}
-        result_dict["table_one"] = table_one
-        result_dict["rank_one"] = rank_one
+        result_dict["table_1"] = table_1
+        result_dict["rank_1"] = rank_1
         return result_dict
     else:
         fout.close()
