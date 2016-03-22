@@ -37,7 +37,8 @@ def model_cal(seria_data,sdmethod,save_filename,result_filename=None):
     '''
     cal_result={}
     if sdmethod  not in get_all_sd_method():
-        cal_result['error'] = 'not found request ' + sdmethod + ' method. '
+        cal_result['args error'] = 'not found request ' + sdmethod + ' method. '
+        logging.error("args error not found request"+sdmethod + "method. ")
         return cal_result
     if sdmethod == "sd_em":
         try:
