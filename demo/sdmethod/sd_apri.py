@@ -2,9 +2,9 @@
 #-*-coding=utf-8-*-
 '''
 Description : statistic indicator rules mining  of the Apriori Algorithm
-require     :pandas-0.16.2-py2.7
+require     :windows Anaconda-2.3.0
 author      : shizhongxian@126.com
-usage  $python indicator_apriori.py  -f jck_table.txt  -s 0.10 -c 0.10 -b small
+usage  $python sd_apri.py  -f jck_table.txt  -s 0.10 -c 0.10 -b small
 '''
 import sys
 import os

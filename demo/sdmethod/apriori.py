@@ -121,28 +121,13 @@ def runApriori(data_iter, minSupport, minConfidence):
 
 def printResults(items, rules,result_name):
     """prints the generated itemsets sorted by support and the confidence rules sorted by confidence"""
-    #fout = open("E:\\inidicator_apriori\\rules_result.txt","w")
     if result_name:
         fout = open(result_name,"w")
-#     for item, support in sorted(items, key=lambda (item, support): support):
-#         if type(item) is tuple:
-#             #print "item: %s , %.3f" % (str(tuple_str(item)), support)
-#             fout.write("item: %s , %.3f" % (str(tuple_str(item)), support))
-#             fout.write("\n")
-#             continue
-#         #print "item: %s , %.3f" % (str(item), support)
-#         fout.write("item: %s , %.3f" % (str(item), support))
-#         fout.write("\n")
-    #print "\n------------------------ RULES:"
-    #fout.write("\n------------------------ RULES:"+"\n")
     result_dict = {}
     table_1 = []
     
     for rule, confidence,support in sorted(rules, key=lambda (rule, confidence,support): confidence):
         pre, post = rule
-        #print "Rule: %s ==> %s , %.3f" % (str(tuple_str(pre)), str(tuple_str(post)), confidence)
-        #print "%s==>%s,%.3f" % (str(tuple_str(pre)), str(tuple_str(post)), confidence)
-        #fout.write("Rule: %s ==> %s , %.3f ,%.3f" % (str(tuple_str(pre)), str(tuple_str(post)), confidence,support))
         if result_name:
             fout.write("%s==>%s , %.3f , %.3f" % (str(tuple_str(pre)), str(tuple_str(post)),confidence,support))
             fout.write("\n")

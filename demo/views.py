@@ -87,7 +87,8 @@ def model_cal(seria_data,sdmethod,save_filename,result_filename=None):
         else:
             cal_result["para_error"] = "can not find method  to cal"
     return cal_result
-    
+ 
+ #该类用于网页展示版可视化调用   
 class SdViewSet(viewsets.ModelViewSet):
     '''
     
@@ -130,7 +131,7 @@ class SdViewSet(viewsets.ModelViewSet):
             return Response(cal_result, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
  
- 
+ #该类用于API请求调用
 class ApiViewSet(APIView):
     authentication_classes = (BasicAuthentication,SessionAuthentication )
     permission_classes = (IsAuthenticated,)
