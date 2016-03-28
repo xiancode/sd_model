@@ -36,6 +36,9 @@ def data_set(fname):
     return cleaned_data,area_list,indicators
     
 def sd_edu_coeff(fname,result_name):
+    '''
+    参考 '县域义务教育均衡发展计算差异系数模板'
+    '''
     result_dict = {}
     try:
         cl_data,area_list,indicators  = data_set(fname)
@@ -45,7 +48,7 @@ def sd_edu_coeff(fname,result_name):
     #提取在校学生数列
     students = cl_data['在校学生数']
     students_num = list(students)
-    #删除在校学生数列
+    #删除在校学生数列,只计算其他指标
     cl_data = cl_data.drop('在校学生数', 1)
     origin_values = cl_data.values
     m,n = origin_values.shape

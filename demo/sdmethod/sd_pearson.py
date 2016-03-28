@@ -44,10 +44,13 @@ def sd_pearson(fname,result_name):
         result_dict['error'] = 'pearson correlation coefficient variable must = 2'
         pear_logger.info("pearson correlation coefficient variable must = 2")
         return result_dict
+    #描述统计信息
     descrip_statis = []
     descrip_statis.append(indi_list)
     values = cl_data.values
+    #均值
     mean = values.mean(axis=1)
+    #标准差
     std  = values.std(axis=1)
     mean_list = mean.tolist()
     std_list = std.tolist()
@@ -59,6 +62,7 @@ def sd_pearson(fname,result_name):
     mean = mean.reshape(2,1)
     diff = values - mean
     diff_quadratic = np.square(diff)
+    #皮尔森系数
     pearson_corr = sum(diff[0]*diff[1])/np.sqrt(sum(diff_quadratic[0])*sum(diff_quadratic[1]))
     result_dict['pearson_corr'] = str(round(pearson_corr,6))
     result_dict['descript_statistics'] = descrip_statis
@@ -87,7 +91,6 @@ def save_result(result_dict,result_name):
             f.write('\t'.join(des_list))
             f.write('\n')
             
-        
 if __name__=="__main__":
     optparser = OptionParser()
     optparser.add_option('-f', '--inputFile',
