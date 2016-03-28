@@ -154,12 +154,7 @@ def indicator_classify(datafile,buckets_cls):
     com_list
     all_data['comb_str'] = pd.Series(com_list)
 
-#     with open("four_year_indicators.txt","w") as fi:
-#         caled_indicators = all_data.indicator.unique()
-#         for tmp_ in caled_indicators:
-#             fi.write(tmp_+"\n")
-    
-    #转化成  月份_标识符---->[指标1,指标2,.....]形式
+    #转化成  月份_标识符---->[指标1,指标2,.....]形式,方便调用apriori
     indi_dict = all_data['indicator'].to_dict()
     flag_dict =all_data['comb_str'].to_dict()
     flag_indi_dict = {}
@@ -179,20 +174,6 @@ def indicator_classify(datafile,buckets_cls):
     #保存结果      
     print "Save data..."    
     #logging.info("save data") 
-#     try: 
-#         with open("Apriori_indicators.txt","w") as f:
-#             line_no = 0
-#             for k,value_list in flag_indi_dict.iteritems():
-#                 line_no += 1
-#                 if line_no%100 == 0:
-#                     print line_no
-#                 #f.write(k+"\t")
-#                 f.write('\t'.join(value_list))
-#                 f.write("\n")
-#     except Exception,e:
-#         print e
-#         logging.info("save data",e) 
-    #logging.info("return data") 
     return flag_indi_dict.values()
 
 def sd_apri_main(inFile,buckets_cls,minSupport, minConfidence,result_name):
@@ -232,10 +213,7 @@ if __name__ == "__main__":
                          default='small')
     
     (options, args) = optparser.parse_args()
-    #logging.info("c="+str(options.minC))
-    #logging.info("S="+str(options.minS))
-    #logging.info("b="+str(options.buckets_cls))
-    
+
     inFile = None
     if options.input is None:
             inFile = sys.stdin
@@ -256,10 +234,6 @@ if __name__ == "__main__":
     result_name = full_name[:pos] + "_result.txt"
     apri_logger.info("start apriori!")
     try:
-        #logging.info("in try!")
-        #logging.info("inFile",str(inFile))
-        #apri_indi_set = indicator_classify(inFile,buckets_cls)
-#         print "excute apriori algorithm"
 #         logging.info("excuting apriori!")
 #         rows_file = apriori.dataFromList(apri_indi_set)
 #         items, rules = apriori.runApriori(rows_file, minSupport, minConfidence)

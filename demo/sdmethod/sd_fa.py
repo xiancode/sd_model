@@ -45,7 +45,7 @@ def get_factor_weight(data,n_components):
 
 def data_set(fname):
     '''
-        把数据转化为二维表格,每行表示一个时间段,每列表示一个指标
+        把数据转化为pandas可处理的二维表格,行表示地区，列表示指标
         删除包含空值的行
     '''
     df = pd.read_csv(fname,"\t")
@@ -60,7 +60,7 @@ def data_set(fname):
     #原始指标列表
     indicators = pivoted.columns
     indi_list = indicators.tolist()
-    #清洗后的的确列表
+    #清洗后的地区列表
     cleaned_areas = cleaned_data.index
     cleaned_area_list = cleaned_areas.tolist()
     fa_logger.info("selected area:"+" ".join(area_list))
@@ -73,9 +73,10 @@ def data_set(fname):
 
 def sd_fa(fname,components,result_name):
     '''
-    pca 计算
+    FA计算
     '''
     fa_logger.info("start sd_fa")
+    #Web API 返回结果
     result_dict = {}
     cl_data,area_list = data_set(fname)
     values = cl_data.values
@@ -98,7 +99,6 @@ def sd_fa(fname,components,result_name):
     result_col.name = "指标"
     result_idx = ["因子"+str(i+1) for i in range(components)]
     #输出因子权重
-
     result_data = pd.DataFrame(fa.components_,columns=result_col,index=result_idx)
     fact_scores = result_data.values.tolist()
     table_1 = []

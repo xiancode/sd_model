@@ -29,16 +29,16 @@ pca_logger.addHandler(fh)
 
 def data_set(fname):
     '''
-        把数据转化为二维表格,每行表示一个时间段,每列表示一个指标
+        把数据转化为pandas可处理的二维表格,行表示地区，列表示指标
         删除包含空值的行
     '''
     df = pd.read_csv(fname,"\t")
-    #data = df.rename(columns={'月份顺序排序':'m_order','正式指标':'indicator','正式数值':'value'})
     data = df.rename(columns={'地区':'area','正式指标':'indicator','正式数值':'value'})
     pivoted = data.pivot('area','indicator','value')
     #删除空值行
     cleaned_data = pivoted.dropna(axis=0)
     areas = cleaned_data.index
+    #地区列表
     area_list = areas.tolist()
     pca_logger.info("selected area:" + " ".join(area_list))
     return cleaned_data,area_list
@@ -48,14 +48,18 @@ def sd_pca(fname,components,result_name):
     pca 计算
     '''
     pca_logger.info("start sd_pca")
+    #Web API 返回结果
     result_dict = {}
     cl_data,area_list = data_set(fname)
     values = cl_data.values
     pca = PCA(n_components=components)
     #数据标准化
     values = preprocessing.scale(values)
+    #用pca包来处理数据
     pca.fit(values)
+    #权重
     variance_ratio_ = pca.explained_variance_ratio_
+    #得分
     scores = np.dot(pca.transform(values),pca.explained_variance_ratio_)
     scores_list = scores.tolist()
     
