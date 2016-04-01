@@ -4,4 +4,4 @@
 *.log
 .project
 .pydevproject
-
+.txt
