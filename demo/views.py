@@ -69,6 +69,7 @@ def model_cal(seria_data,sdmethod,save_filename,result_filename=None):
     elif sdmethod == "sd_apri":
         try:
             c  = seria_data.get("c")
+            c = float(c)
         except Exception,e:
             cal_result["para_error"] = "can not  get 'c' from request"
         try:
@@ -77,6 +78,7 @@ def model_cal(seria_data,sdmethod,save_filename,result_filename=None):
             cal_result["para_error"] = "can not  get 'b' from request"
         try:
             s  = seria_data.get("s")
+            s = float(s)
         except Exception,e:
             cal_result["para_error"] = "can not  get 's' from request"
         try:
@@ -84,8 +86,8 @@ def model_cal(seria_data,sdmethod,save_filename,result_filename=None):
         except Exception,e:
             cal_result["cal_error"] = "sd_apri  method cal error"
             logging.error("method  sd_apri",e)
-        else:
-            cal_result["para_error"] = "can not find method  to cal"
+    else:
+        cal_result["para_error"] = "can not find method  to cal"
     return cal_result
  
  #该类用于网页展示版可视化调用   
