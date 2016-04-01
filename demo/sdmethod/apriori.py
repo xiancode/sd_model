@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+#-*-coding=utf-8-*-
 """
 Description     : Simple Python implementation of the Apriori Algorithm
 
@@ -125,7 +127,7 @@ def printResults(items, rules,result_name):
         fout = open(result_name,"w")
     result_dict = {}
     table_1 = []
-    
+    table_1.append(['前项','后项','置信度','支持度'])
     for rule, confidence,support in sorted(rules, key=lambda (rule, confidence,support): confidence):
         pre, post = rule
         if result_name:
