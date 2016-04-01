@@ -136,7 +136,6 @@ def indicator_classify(datafile,buckets_cls):
     start_time = months_list[0]
     flag_list = all_data["flag"].tolist()
     com_list = comb_str(months_list,flag_list)
-    com_list
     all_data['comb_str'] = pd.Series(com_list)
 
     #转化成  月份_标识符---->[指标1,指标2,.....]形式,方便调用apriori
