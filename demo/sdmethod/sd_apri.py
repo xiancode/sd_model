@@ -83,21 +83,15 @@ def indicator_classify(datafile,buckets_cls):
         传入文件包括 '时间顺序排序, '地区',  '正式指标', '正式数值', '正式单位'
     '''
     try:
-        #logging.info("load config")
         cf = ConfigParser.ConfigParser()
-        #cf.read('E:\\inidicator_apriori\\apriori.cfg')
         global CFG_FILE_NAME
         cf.read(CFG_FILE_NAME)
     except Exception,e:
         print "load cfg failed"
-        #logging.info("load config failed")
-    #get buckets
     try:
-        #logging.info("get buckets_dicts")
         buckets_dicts = eval(cf.get('buckets_dicts', buckets_cls))
     except Exception,e:
         print  "get buckets_dicts failed",e
-        #logging.info("get buckets_dicts")
     def get_flag(value):
         for key in buckets_dicts.keys():
             if key[0]<=value and value <= key[1]:
@@ -105,18 +99,14 @@ def indicator_classify(datafile,buckets_cls):
         return None    
     
     #载入数据
-    #logging.info("read table")
     data = pd.read_table(datafile)
     #列名重命名
-    #logging.info("rename table")
     data = data.rename(columns={'时间顺序排序':'month', '地区':'area', 
                                 '正式指标':'indicator', '正式数值':'value', '正式单位':'unit'})
     #所有指标
     indicators = data.indicator.unique()
     #过滤掉月份数据不足的指标数据
-    #logging.info("delete null ")
     data = delete_empty_month(data, indicators)
-    print "calculate indicator num ratio"
     con_list = []
     iterr = 0
     for indicator in indicators:
@@ -124,14 +114,11 @@ def indicator_classify(datafile,buckets_cls):
         iterr += 1
         if iterr % 200 == 0:
             print iterr
-        #print indicator
         indi_data = data[data.indicator.isin([indicator])]
-        #sort_data =  indi_data.sort(columns='month')
         sort_data =  indi_data
         unit_set = set(sort_data["unit"].tolist())
         #过滤掉单位不统一的指标数据
         if len(unit_set) != 1:
-            #print "unit error"
             continue
         nums_list = sort_data["value"].tolist()
         ratio_list = hb_ratio(nums_list)
@@ -140,9 +127,7 @@ def indicator_classify(datafile,buckets_cls):
         ratio_data['ration'] = pd.Series(ratio_list,index=ratio_data.month)
         flag_list = map(get_flag,ratio_list)
         ratio_data['flag'] = pd.Series(flag_list,index=ratio_data.month)
-        #print ratio_data
         con_list.append(ratio_data)
-    print "concat data ..."
     #logging.info("concat data ...")
     all_data = pd.concat(con_list,ignore_index=True)
     #形成新的列  年/月份_标识符   201101_K 的样式  
@@ -181,7 +166,6 @@ def sd_apri_main(inFile,buckets_cls,minSupport, minConfidence,result_name):
     
     ''' 
     apri_logger.info("start sd_apri")
-    #cfg_file_name = get_cfg_filename(BASE_DIR)
     get_cfg_filename(BASE_DIR)
     apri_indi_set = indicator_classify(inFile,buckets_cls)
     rows_file = apriori.dataFromList(apri_indi_set)
@@ -226,19 +210,14 @@ if __name__ == "__main__":
     minSupport = options.minS
     minConfidence = options.minC
     buckets_cls = options.buckets_cls
-    inFile = 'test.txt'
+    inFile = 'AR.txt'
  
     full_name = os.path.realpath(inFile)
-    #cfg_file_name = get_cfg_filename(BASE_DIR)
     pos = full_name.find(".txt")
     result_name = full_name[:pos] + "_result.txt"
     apri_logger.info("start apriori!")
     try:
-#         logging.info("excuting apriori!")
-#         rows_file = apriori.dataFromList(apri_indi_set)
-#         items, rules = apriori.runApriori(rows_file, minSupport, minConfidence)
-#         apriori.printResults(items, rules,result_name)
-        sd_apri_main(inFile, buckets_cls,minSupport, minConfidence)
+        sd_apri_main(inFile, buckets_cls,minSupport, minConfidence,result_name)
     except Exception,e:
         apri_logger.error("apriori api error",str(e))
     else:
